@@ -82,8 +82,7 @@ theme_mode: dark  # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
-
+avatar: 
 # boolean type, the global switch for ToC in posts.
 toc: true
 
