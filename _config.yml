@@ -31,7 +31,7 @@ description: >-                        # used by seo meta and the atom feed
 url: 'https://snwox.github.io'
 
 github:
-  username: github_username             # change to your github username
+  username: snwox             # change to your github username
 
 twitter:
   username: twitter_username            # change to your twitter username
@@ -39,7 +39,7 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
+  name: snwo
   email: example@doamin.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
@@ -82,7 +82,7 @@ theme_mode: dark  # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
