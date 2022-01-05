@@ -42,15 +42,15 @@ order: 4
 
 ## 2021
 
-장려상 | The hacking Championship Junior as team 씹덕팀명 몀춰 (300,000 won)  [📰](http://www.lecturernews.com/news/articleView.html?idxno=80638)
+장려상 | The hacking Championship Junior as team 씹덕팀명 몀춰 (300,000 won)  [📰](http://www.lecturernews.com/news/articleView.html?idxno=80638){: .right}
 
-🏆       | 현대오토와 함께하는 화이트해커 경진대회 as team 구경만할게요 (1,500,000 won) [📰](https://zdnet.co.kr/view/?no=20211108170838)
+🏆       | 현대오토와 함께하는 화이트해커 경진대회 as team 구경만할게요 (1,500,000 won) [📰](https://zdnet.co.kr/view/?no=20211108170838){: .right}
 
-5th      | Whitehat Contest Qualifier as team 에밀리아 
+5th      | Whitehat Contest Qualifier as team 에밀리아 {: .right}
 
-🥈       | anu CTF as team 한번도안틀리고부르기어려운팀명 (500,000 won)
+🥈       | anu CTF as team 한번도안틀리고부르기어려운팀명 (500,000 won){: .right}
 
-5th      | YISF as snwo (한국정보보호산업협회장상) [📰](https://www.boannews.com/media/view.asp?idx=100817)
+5th      | YISF as snwo (한국정보보호산업협회장상) [📰](https://www.boannews.com/media/view.asp?idx=100817){: .right}
 
 ## 2020
 
