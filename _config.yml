@@ -86,7 +86,7 @@ avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A
 # boolean type, the global switch for ToC in posts.
 toc: true
 
-comments: true
+comments: 
   active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
