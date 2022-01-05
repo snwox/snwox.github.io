@@ -20,7 +20,7 @@ timezone: Asia/Seoul
 
 title: snwo                          # the main title
 
-tagline: 🖐me from Korea, Interested in REV,PWN,MONEY   # it will display as the sub-title
+tagline: 🖐 me from Korea, Interested in REV,PWN,MONEY   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
