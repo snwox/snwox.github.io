@@ -6,8 +6,6 @@ order: 4
 
 # whoami
 
-![Untitled](whoami%20677cb30cb1304250ab7497b4daad8410/Untitled.png)
-
 # profile
 
   facebook : facebook.com/snwooo
