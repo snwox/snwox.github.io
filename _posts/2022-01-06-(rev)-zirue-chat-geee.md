@@ -2,7 +2,7 @@
 title: (REV) zirue chat geee
 categories: [REV]
 tags : [mineswipper]
-date : 2022-01-06 18:47:32 +0900
+date : 2022-01-06 18:48:55 +0900
 author:
     name: 
     link: 
