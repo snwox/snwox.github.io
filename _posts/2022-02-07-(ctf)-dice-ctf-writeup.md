@@ -1,8 +1,8 @@
 ---
 title: (CTF) Dice CTF writeup
-categories: [CTF]
-tags : 
-date : 2022-02-07 05:13:20 +0900
+categories: [CTF, testcategories]
+tags : [testtag1, testatag2]
+date : 2022-02-07 05:20:36 +0900
 author:
     name: 
     link: 
