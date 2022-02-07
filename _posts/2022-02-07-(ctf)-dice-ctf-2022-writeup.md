@@ -2,7 +2,7 @@
 title: (CTF) Dice CTF 2022 writeup
 categories: [CTF]
 tags : [2022, CTF, writeup]
-date : 2022-02-07 05:22:10 +0900
+date : 2022-02-07 13:16:37 +0900
 author:
     name: 
     link: 
@@ -14,7 +14,7 @@ math: false
 
 # (REV) flagle
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled.png)
 
 한 줄에 `5*6` 글자씩 넣어보면, 맞는지 아닌지 출력해준다.
 
@@ -115,7 +115,7 @@ if 문으로 각 열에 대해 문자가 올바르지 판단하는것을 볼 수
 
 ### row 1
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%201.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%201.png)
 
 문자열 비교
 
@@ -131,15 +131,15 @@ flag[0][4] = ord('{')
 
 ### row 2
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%202.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%202.png)
 
 각 문자들을 메모리에서 로드한 후, 
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%203.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%203.png)
 
 옮기는 과정의 흐름을 잘 따라가 보면,
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%204.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%204.png)
 
 각 문자마다 상수와 비교하는 것을 볼 수 있습니다.
 
@@ -155,7 +155,7 @@ flag[1][4] = ord("D")
 
 ### row 3
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%205.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%205.png)
 
 각각 사칙연산한 결과를 비교하는데, z3 으로 풀 수 있다.
 
@@ -181,11 +181,11 @@ if s.check() == sat:
 
 ### row 4
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%206.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%206.png)
 
 대충 validate_4 를 호출하는 것 같은데, wasm 바이너리에서는 없었고,
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%207.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%207.png)
 
 `flag-checker.js` 를 보면 `validate_4` 만 저렇게 등록되어있는 것을 볼 수 있다.
 
@@ -289,7 +289,7 @@ f-1 == 3 (a 의 인덱스)
 
 ### row 5
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%208.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%208.png)
 
 row 5 도 일련의 과정을 거쳐 메모리에서 열심히 옮기면서 비교하게 되는데,
 
@@ -307,7 +307,7 @@ flag[4][4] = ord("M")
 
 ### row 6
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%209.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%209.png)
 
 마지막 스테이지로, 조건이 적어서 z3 으로 풀리긴 풀리는데, 좀 오래걸렸당.
 
@@ -401,4 +401,4 @@ T$r3}
 
 ```
 
-![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-writeup/Untitled%2010.png)
+![Untitled](/assets/img/2022-02-07-(ctf)-dice-ctf-2022-writeup/Untitled%2010.png)
