@@ -1,7 +1,7 @@
 ---
 title: (CTF) Dice CTF 2022 writeup
 categories: [CTF]
-tags : [2022, CTF, writeup]
+tags : [2022, ctf, writeup]
 date : 2022-02-07 13:16:37 +0900
 author:
     name: 
