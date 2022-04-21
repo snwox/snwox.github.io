@@ -10,19 +10,15 @@ order: 4
 
   facebook : facebook.com/snwooo
 
-  github : github.com/snwo
+  github : [https://github.com/snwox](https://github.com/snwox)
 
   open profile : [https://open.kakao.com/o/sbpVkhN](https://open.kakao.com/o/sbpVkhN)
-
-  [CTFtime.org](http://CTFtime.org) : [ctftime.org/team/151893](https://ctftime.org/team/151893)
 
   nickname : `snwo`
 
   team :
 
     [ST4RT](https://ctftime.org/team/151893) ( CTF team )
-
-    [Bugs-guy](https://bugs-guy.com/) ( Bogbounty team )
 
   interest-in : 
 
@@ -40,39 +36,32 @@ order: 4
 
 3rd : 🥉
 
-## 2021
-
-장려상 | The hacking Championship Junior as team 씹덕팀명 몀춰 (300,000 won)  [📰](http://www.lecturernews.com/news/articleView.html?idxno=80638){: .right}
-
-🏆       | 현대오토와 함께하는 화이트해커 경진대회 as team 구경만할게요 (1,500,000 won) [📰](https://zdnet.co.kr/view/?no=20211108170838){: .right}
-
-5th      | Whitehat Contest Qualifier as team 에밀리아 {: .right}
-
-🥈       | anu CTF as team 한번도안틀리고부르기어려운팀명 (500,000 won){: .right}
-
-5th      | YISF as snwo (한국정보보호산업협회장상) [📰](https://www.boannews.com/media/view.asp?idx=100817){: .right}
-
-## 2020
-
-🏆       | DIMICTF (한국정보기술연구원장상)
-
-본선    | 정보보호올림피아드 [본선진출](https://www.boannews.com/media/view.asp?idx=91520&kind=2)
-
-🥈       | Layer7CTF (중등부) as 디미고가고싶어요
-
-5th      | The Hacking Championship Junior as team 구경만할게요 (300,000 won) [📰](http://www.gailbo.com/default/index_view_page.php?part_idx=191&idx=296731)
-
-4th      | TeamLog LOGCON as HIHIHAHAHOHO
-
-## 2019
-
-9th      | DIMICTF 장려상
+| # 2021 |  |  |  |  |
+| --- | --- | --- | --- | --- |
+| 🏆  | Hackingcamp 24th | G102 |  | as team 팀명은아무상관이없습니다 |
+| 장려 | HackChamp Junior | 300,000 won |  | as team 씹덕팀명 멈춰 |
+| 🏆 | 현대오토 화이트해커경진대회 | 1,500,000 won |  | as 구경만할게요 |
+| 🥈 | ANU CTF | 500,000 won | 대구가톨릭대총장상 | as team 한번도안틀리고부르기어려운팀명 |
+| 5th | YISF | airpods pro | 한국정보보호산업협회장상 | as snwo |
+|  |  |  |  |  |
+| # 2020 |  |  |  |  |
+| 🏆 | DIMI CTF |  | 한국정보기술연구원장상 | as snwo |
+| 🥈 | Layer7 CTF (중등부) |  |  | as 디미고가고싶어요 |
+| 5th | Hackchamp Junior  | 300,000 won |  | as team 구경만할게요 |
+|  |  |  |  |  |
+| # 2019 |  |  |  |  |
+| 9th | DIMI CTF |  |  |  |
+|  |  |  |  |  |
 
 # Vulnerability
 
 ## 2021
 
 hackingzone #32436 S XSS
+
+[https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/](https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/) click XSS
+
+[https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/](https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/) click CSRF
 
 # presentation
 
@@ -89,3 +78,5 @@ waylab CTF | IT LAB in DIMIGO
 # Project
 
 Stealien Security Leader | 웹쉘/백도어 자동탐지
+
+[https://teamst4rt.github.io](https://teamst4rt.github.io) | 팀 홈페이지 제작 (svelte)
