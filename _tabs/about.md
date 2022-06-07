@@ -4,11 +4,7 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-# whoami
-
 # profile
-
-  facebook : facebook.com/snwooo
 
   github : [https://github.com/snwox](https://github.com/snwox)
 
@@ -20,7 +16,7 @@ order: 4
 
     [ST4RT](https://ctftime.org/team/151893) ( CTF team )
 
-  interest-in : 
+  interested-in : 
 
     **Reversing**
 
@@ -36,8 +32,9 @@ order: 4
 
 3rd : 🥉
 
-| # 2021 |  |  |  |  |
+|  |  |  |  |  |
 | --- | --- | --- | --- | --- |
+| # 2021 |  |  |  |  |
 | 🏆  | Hackingcamp 24th | G102 |  | as team 팀명은아무상관이없습니다 |
 | 장려 | HackChamp Junior | 300,000 won |  | as team 씹덕팀명 멈춰 |
 | 🏆 | 현대오토 화이트해커경진대회 | 1,500,000 won |  | as 구경만할게요 |
@@ -55,28 +52,36 @@ order: 4
 
 # Vulnerability
 
-## 2021
-
-hackingzone #32436 S XSS
-
-[https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/](https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/) click XSS
-
-[https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/](https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/) click CSRF
+|  |  |  |
+| --- | --- | --- |
+| # 2021 |  |  |
+| hackingzone #32436 | #32436 | stored XSS |
+| https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/ | click xss |  |
+| https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/  | click csrf |  |
+|  |  |  |
 
 # presentation
 
-## 2021
-
-Incognito conference | angr 와 확장 라이브러리 소개
+|  |  |  |
+| --- | --- | --- |
+| # 2021 |  |  |
+| Incognito conference | angr 와 확장 라이브러리 소개  |  |
+|  |  |  |
 
 # organization
 
-## 2021
-
-waylab CTF | IT LAB in DIMIGO
+|  |  |  |
+| --- | --- | --- |
+| # 2021 |  |  |
+| playground CTF | for freshman in DIMIGO |  |
+| waylab CTF | IT LAB in DIMIGO |  |
+|  |  |  |
 
 # Project
 
-Stealien Security Leader | 웹쉘/백도어 자동탐지
-
-[https://teamst4rt.github.io](https://teamst4rt.github.io) | 팀 홈페이지 제작 (svelte)
+|  |  |  |
+| --- | --- | --- |
+| # 2021 |  |  |
+| Stealien Security Leader | 웹쉘/백도어 탐지 툴 제작 |  |
+| ST4RT team page | 팀 홈페이지 제작 (svelte) |  |
+|  |  |  |
