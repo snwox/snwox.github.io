@@ -22,7 +22,7 @@ order: 4
 
     Pwnable
 
-    Bugbounty
+    Bughunting
 
 # awards
 
@@ -55,7 +55,7 @@ order: 4
 |  |  |  |
 | --- | --- | --- |
 | # 2021 |  |  |
-| hackingzone #32436 | #32436 | stored XSS |
+| hackingzone #32436 | stored XSS |  |
 | https://huntr.dev/bounties/53b2d592-626b-4d0a-a7ea-b58766c7a3dc/ | click xss |  |
 | https://huntr.dev/bounties/6f61cd97-5173-4eb4-89d1-e3f2ccb51c06/  | click csrf |  |
 |  |  |  |
@@ -66,6 +66,7 @@ order: 4
 | --- | --- | --- |
 | # 2021 |  |  |
 | Incognito conference | angr 와 확장 라이브러리 소개  |  |
+| Stealien Security Seminar 1st | idapython 으로 분석을 더 편하게 하는 방법 | http://ufo.stealien.com/2022-06-30/stealien-security-seminar |
 |  |  |  |
 
 # organization
@@ -76,8 +77,11 @@ order: 4
 | playground CTF | for freshman in DIMIGO |  |
 | waylab CTF | IT LAB in DIMIGO |  |
 |  |  |  |
+| # 2022 |  |  |
+| ST4RT recruit CTF | Internel CTF for recruiting new team members |  |
+|  |  |  |
 
-# Project
+# projects
 
 |  |  |  |
 | --- | --- | --- |
