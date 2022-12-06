@@ -4,6 +4,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 
+# whoami
+
 # profile
 
 github : [https://github.com/snwox](https://github.com/snwox)
@@ -17,9 +19,9 @@ team : [ST4RT](https://teamst4rt.github.io) ( CTF team ) 2021 ~ now
 interested-in : 
 
 ```python
-**Reversing
+Reversing
 Pwnable
-Bughunting**
+Bughunting
 ```
 
 # awards
@@ -33,11 +35,10 @@ Bughunting**
 | # 2022 |  |  |  |  |
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
+| 🥉 | whitehat contest final | 2,000,000 won | 사이버작전사령관상 | as team MakeEverythingRust |
+| 🥈 | hackchamp final | 500,000 won |  | as team MakeEverythingRust |
 | 🥉 | JBU CTF | 50,000 won |  | as 장려상은 내꺼 |
 | 🏆 | CCE final | 5,000,000 won | 국가보안기술연구소장상 | as team 지구가평평한이유10가지 |
-| 🥈 | hackchamp qual |  |  | as team MakeEverythingRust |
-| 🥉 | whitehat qual |  |  | as team MakeEverythingRust |
-| 🥉 | CCE qual |  |  | as team 지구가평평한이유10가지 |
 | 5th | YISF | 100,000 won | 한국정보보호산업협회장상 | as snow |
 | # 2021 |  |  |  |  |
 | 🏆  | Hackingcamp 24th | G102 |  | as team 팀명은아무상관이없습니다 |
