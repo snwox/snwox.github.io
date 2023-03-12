@@ -1,0 +1,159 @@
+---
+title: (CTF) 2022 hxp required writeup
+categories: [CTF]
+tags : [writeup]
+date : 2023-03-13 08:27:35 +0900
+author:
+    name: 
+    link: 
+toc: true
+comments: false
+mermaid: false
+math: false
+---
+
+```jsx
+f=[...require('fs').readFileSync('./flag')]
+require('./28')(753,434,790)
+require('./157')(227,950,740)
+require('./736')(722,540,325)
+require('./555')(937,26,229)
+require('./394')(192,733,981)
+require('./446')(635,887,709)
+require('./394')(751,446,832)
+...
+require('./37')(f)
+```
+
+It requires numerous `.js` files and calls exported functions.
+Some of those functions modify `__proto__` to change the require path ( i’m not sure it really works ), while others do operations that modify `flag`
+
+```python
+import os
+import re
+## get current files *.js
+files = os.listdir(os.getcwd())
+
+new_files = []
+## get each file execution
+for file in files:
+    if file.endswith('.js'):
+        with open(file, 'r') as f:
+            execution = f.read()
+            ## if f\[.\] is in execution
+            if re.search(r'f\[.\]', execution):
+                new_files.append(file)
+for file in new_files:
+    with open(file, 'r') as f:
+        contents = f.read()
+        execution = contents[:]
+        execution = re.findall(r'f\[.\].*\)$', execution)[0][:-1]
+        execution = re.sub(r'(f\[(.)\])',r'f[${\2}]',execution)
+        print(execution)
+    with open(file, 'w') as f:
+        data = contents[:-1] + ",console.log(`"+execution+"`))"
+        f.write(data)
+```
+
+The files that modify the flag use `f` variable.
+So I modify those `.js` files to print each operations
+
+```python
+files node required.js 
+f[17]+=f[5],f[17]&=0xff
+f[29]=~f[29]&0xff
+f[3]^=f[11]
+f[6]=f[6]<<7&0xff|f[6]>>1
+f[2]=~f[2]&0xff
+f[20]=f[20]<<7&0xff|f[20]>>1
+f[23]=f[23]^(f[23]>>1)
+...
+```
+
+It prints well
+
+```python
+## + -> -
+## - -> +
+## ~ -> ~
+## f[x]^=f[y] -> f[x]^=y
+## ror -> rol
+## rol -> ror
+## f[XX]^(f[XX]>>1) -> xor(f[XX])
+## f[XX]=(((f[XX]*0x0802&0x22110)|(f[XX]*0x8020&0x88440))*0x10101>>16)&0xff -> inv(f[XX])
+```
+
+There are 7 major types of operations. `+, -, ~, ror, rol, xor` can be easily reversed.
+In case of xoring with itself after rsh 1, MSB can be found, so inverse calculation is possible if xor in turn. I made a separate function to calculate the inverse.
+The last bit operation can be reversed by creating a table for values up to 0xff in a one-to-one correspondence.
+
+```python
+import re
+ans = 0xd19ee193b461fd8d1452e7659acb1f47dc3ed445c8eb4ff191b1abfa7969
+ans = list(ans.to_bytes(30,byteorder='big'))
+
+def xor(x):
+    mask = 0b10000000
+    prev = mask & x
+    out = prev
+    for _ in range(7):
+        mask >>= 1
+        prev >>=1
+        out |= (prev ^ x) & mask
+        prev = out & mask
+    return out
+
+inv = {}
+for i in range(0x100):
+    inv[(((i*0x0802&0x22110)|(i*0x8020&0x88440))*0x10101>>16)&0xff] = i
+
+code = """f[17]+=f[5]
+f[17]&=0xff
+...
+f[0]=~f[0]&0xff""".split('\n')
+
+code = code[::-1]
+
+new_code = []
+for line in code:
+    if line.find('+=') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        line = line.replace('+=', '-=')
+        line += "\n"
+        line += f"{var}&= 0xff"
+    elif line.find('-=') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        line = line.replace('-=', '+=')
+        line += "\n"
+        line += f"{var} &= 0xff"
+    elif line.find('^') != -1 and line.find('>>') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        line = f"{var} = xor({var})"
+    elif line.find('0x88440') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        line = f"{var} = inv[{var}&0xff]"
+    elif line.find('|') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        if line.find('<<1') != -1: ## to ror
+            line = f"{var} = {var}>>1|({var}<<7&0xff)"
+        else: ## to rol
+            line = f"{var} = {var}>>7|({var}<<1&0xff)"
+    elif line.find('~') != -1:
+        var = re.match(r'(f\[[0-9]+\])',line)[0]
+        line = f"{var} = ~{var}&0xff"
+    elif line.find('^') != -1:
+        pass
+    else:
+        continue
+    new_code.append(line)
+f = ans[:]
+for line in new_code:
+    exec(line)
+print(bytes(f))
+
+```
+
+After collecting and inverting the output code, converting each into an inverse and executing it with the `exec` function, you can see that the flag is decrypted.
+
+> hxp{Cann0t_f1nd_m0dule_'fl4g'}
+>
