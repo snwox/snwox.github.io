@@ -14,7 +14,7 @@ nickname : `snwo`
 
 team : [ST4RT](https://teamst4rt.github.io) ( CTF team ) 2021 ~ now
 
-interested-in : 
+interested-in :
 
 ```python
 Rev
@@ -34,23 +34,22 @@ Pwn
 
 | # 2022 |  |  |  |  |
 | --- | --- | --- | --- | --- |
-| 🏆 | hspace ctf the first(고등부) | Logitech G Pro
-corsair k70 rgb TKL |  | as hspace 화이팅 |
-| 🥉 | https://www.korea.kr/news/pressReleaseView.do?newsId=156539399 | 2,000,000  | 사이버작전사령관상 | as team MakeEverythingRust |
+| 🏆 | hspace ctf the first(고등부) | Logitech G Pro, corsair k70 rgb TKL |    | as hspace 화이팅 |
+| 🥉 | whitehat contest final | 2,000,000  | 사이버작전사령관상 | as team MakeEverythingRust |
 | 🥈 | hackchamp final | 500,000 won | 한국교육학술정보원장상 | as team MakeEverythingRust |
 | 🥉 | JBU CTF | 50,000 won |  | as 장려상은 내꺼 |
-| 🏆 | https://www.boannews.com/media/view.asp?idx=111110 | 5,000,000 won | 국가정보원장상 | as team 지구가평평한이유10가지 |
+| 🏆 | CCE final | 5,000,000 won | 국가정보원장상 | as team 지구가평평한이유10가지 |
 | 5th | YISF | 100,000 won | 한국정보보호산업협회장상 | as snow |
 | # 2021 |  |  |  |  |
 | 🏆  | Hackingcamp 24th | G102 |  | as team 팀명은아무상관이없습니다 |
-| 장려 | http://www.lecturernews.com/news/articleView.html?idxno=80638 | 300,000 won | 스틸리언상 | as team 씹덕팀명 멈춰 |
-| 🏆 | https://zdnet.co.kr/view/?no=20211108170838 | 1,500,000 won | 현대오토에버 대표이사 상 | as 구경만할게요 |
+| 장려 | HackChamp Junior | 300,000 won | 스틸리언상 | as team 씹덕팀명 멈춰 |
+| 🏆 | 현대오토 화이트해커경진대회 | 1,500,000 won | 현대오토에버 대표이사 상 | as 구경만할게요 |
 | 🥈 | ANU CTF | 500,000 won | 대구가톨릭대총장상 | as team 한번도안틀리고부르기어려운팀명 |
-| 5th | https://www.boannews.com/media/view.asp?idx=100817 | airpods pro | 한국정보보호산업협회장상 | as snwo |
+| 5th | YISF | airpods pro | 한국정보보호산업협회장상 | as snwo |
 | # 2020 |  |  |  |  |
 | 🏆 | DIMI CTF | 256gb ssd | 한국정보기술연구원장상 | as snwo |
 | 🥈 | Layer7 CTF (중등부) | gaming headset | 학교장상 | as 디미고가고싶어요 |
-| 5th | http://www.gailbo.com/default/index_view_page.php?part_idx=191&idx=296731  | 300,000 won | 공학기술교육혁신선도센터장상 | as team 구경만할게요 |
+| 5th | Hackchamp Junior  | 300,000 won | 공학기술교육혁신선도센터장상 | as team 구경만할게요 |
 | # 2019 |  |  |  |  |
 | 9th | DIMI CTF |  | 학교장상 |  |
 
