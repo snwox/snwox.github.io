@@ -20,19 +20,19 @@ timezone: Asia/Seoul
 
 title: snwo                          # the main title
 
-tagline: 🖐 me from Korea, Interested in REV,PWN,MONEY   # it will display as the sub-title
+tagline: 🖐 from Korea, Interested in REV,WEB3,MONEY,PWN   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Hi
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'http://blog.snwo.fun'
+url: 'http://blog.snwo.kr'
 
 github:
   username: snwox             # change to your github username
 
 twitter:
-  username: snwo_k0r3a            # change to your twitter username
+  username: snwo_kr            # change to your twitter username
 
 social:
   # Change to your full name.
@@ -41,7 +41,7 @@ social:
   email:              # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/snwo_k0r3a      # change to your twitter homepage
+    - https://twitter.com/snwo_kr      # change to your twitter homepage
     - https://github.com/snwox       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
@@ -80,7 +80,8 @@ theme_mode: dark  # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
+#avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
+avatar: 'https://cdn.discordapp.com/avatars/457438240505593857/9eba31876515ad3086a101817b281647.webp?size=64'
 # boolean type, the global switch for ToC in posts.
 toc: true
 
