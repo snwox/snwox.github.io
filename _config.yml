@@ -81,11 +81,11 @@ img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
 #avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
-avatar: 'https://cdn.discordapp.com/avatars/457438240505593857/9eba31876515ad3086a101817b281647.webp?size=64'
+avatar: 'https://cdn.discordapp.com/avatars/457438240505593857/decbf160fdb8f883d145d2f6db6f440d.webp?size=256'
 # boolean type, the global switch for ToC in posts.
 toc: true
 
-comments: 
+comments:
   active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
