@@ -1,10 +1,10 @@
 ---
-title: About
+title: About Me
 icon: fas fa-info-circle
 order: 4
 ---
 
-# whoami
+CV : [https://snwo.kr](https://snwo.kr)
 
 # profile
 
