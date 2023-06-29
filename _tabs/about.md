@@ -4,5 +4,5 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-CV : [https://solidity.kr](https://solidity.kr)
+CV -> [https://solidity.kr](https://solidity.kr)
 
