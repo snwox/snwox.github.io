@@ -12,19 +12,19 @@ mermaid: true
 math: true
 ---
 
+web3 newbie's solver for SafeBridge in rwctf 2024
+
 ## **Objective**
 
-Make the **`BRIDGE`**'s (L1ERC20Bridge) WETH balance zero.
+Drain the **`BRIDGE`** (L1ERC20Bridge) of its WETH balance.
 
 ## **Setup**
 
-The challenge is deployed using the [challenge.py](http://challenge.py/) file, and additionally, [relayer.py](http://relayer.py/) is running.
+The challenge is set up using the `challenge.py` file, with `relayer.py` also running in the background.
 
-Two instances of l1 and l2 seem to be allocated.
-Each instance has 1000 ether.
+There appear to be two instances each of l1 and l2, with each instance holding 1000 ether.
 
 ```python
-pythonCopy code
 action? 1
 creating private blockchain...
 deploying challenge...
@@ -40,19 +40,18 @@ challenge contract: 0x723516b4d13F4D5E7Cc4bCd6ccE9f6eb584da5e6
 
 ```
 
-It's set up like this.
+The setup is configured as shown above.
 
 ### **challenge.py**
 
-First, let's look at the part setting up the challenge.
+Let's start by examining the challenge setup:
 
-1. Deploy using Deploy.s.sol script.
-Give 2 ether approval to L1ERC20Bridge then call depositERC20.
-When called, it transfers WETH to L1ERC20Bridge and sends a message to call L2ERC20Bridge.finalizeDeposit... Let's explore this later.
-2. Deploy a precompiled contract.
+1. Deployment is done via the Deploy.s.sol script.
+    - 2 ether is approved for L1ERC20Bridge followed by a call to depositERC20.
+    - This action transfers WETH to L1ERC20Bridge and triggers a message to call L2ERC20Bridge.finalizeDeposit. More on this later.
+2. A precompiled contract is deployed:
 
 ```solidity
-
 library Lib_PredeployAddresses {
     address internal constant L2_CROSS_DOMAIN_MESSENGER = 0x420000000000000000000000000000000000CAFe;
     address internal constant L2_ERC20_BRIDGE = 0x420000000000000000000000000000000000baBe;
@@ -61,11 +60,11 @@ library Lib_PredeployAddresses {
 
 ```
 
-Then, let's analyze the token transfer method by looking at the [relayer.py](http://relayer.py/) file.
+Next, we'll delve into the token transfer method by examining the `relayer.py` file.
 
 ### **relayer.py**
 
-```solidity
+```python
 Thread(
     target=self._relayer_worker, args=(l1, l1_messenger, l2_messenger)
 ).start()
@@ -75,10 +74,9 @@ Thread(
 
 ```
 
-Workers run on l1_messenger and l2_messenger, respectively.
+Workers operate on l1_messenger and l2_messenger respectively.
 
 ```python
-pythonCopy code
 def _relayer_worker(
     self, src_web3: Web3, src_messenger: Contract, dst_messenger: Contract
 ):
@@ -123,49 +121,39 @@ def _relayer_worker(
             pass
         finally:
             time.sleep(1)
-
 ```
 
-The worker checks src events every second and then calls relayMessage on dest.
+The worker checks src events every second and then calls relayMessage on the destination.
 
 ## **Analysis**
 
-L1→L2 token deposit
+### **L1→L2 Token Deposit**
 
-1. weth deposit & approve
-2. Call L1Bridge::depositERC20(weth,l2_weth,amount)
-Transfer tokens from msg.sender to the bridge.
-If l1token == weth, then
-**`L2bridge:finalizeDeposit(0,l2_weth,from,to,amount)`**
-Otherwise,
-**`L2bridge:finalizeDeposit(l1token,l2token,from,to,amount)`**
-Send message to L2TokenBridge and update **`deposits[l1token][l2token]`**.
-Issues arise when l1token→weth, l2token→other token.
-The deposit on L2 is made to L2_WETH, but the record in deposits is made to the address of the other token.
-When sending messages, the sentMessages mapping is checked, but it's not used.
-3. relayer accept
-Check L1 events and call relayMessage on L2,
-Hash the calldata, set xDomainMessageSender → msg.sender and then call.
-In finalizeDeposit, check if this is L1TokenBridge and then mint L2token.
+1. **WETH Deposit & Approval**
+2. **Calling L1Bridge::depositERC20(weth,l2_weth,amount)**
+    - Transfers tokens from msg.sender to the bridge.
+    - If l1token == weth, it triggers **`L2bridge:finalizeDeposit(0,l2_weth,from,to,amount)`**.
+    - Otherwise, it triggers **`L2bridge:finalizeDeposit(l1token,l2token,from,to,amount)`**.
+    - This sends a message to L2TokenBridge and updates **`deposits[l1token][l2token]`**.
+    - A problem arises when l1token→weth and l2token→other token.
+    - The deposit on L2 is made to L2_WETH, but the record in deposits is to the address of the other token.
+3. **Relayer Acceptance**
+    - Checks L1 events and calls relayMessage on L2.
+    - Hashes the calldata, sets xDomainMessageSender → msg.sender, and then calls.
+    - In finalizeDeposit, checks if it is L1TokenBridge and then mints L2token.
 
-L2→L1 token withdrawal
+### **L2→L1 Token Withdrawal**
 
-1. Burn L2token.
-2. Encode message.
-If L2Token==L2_WETH,
-**`L1Bridge::finalizeWethWithdrawal(from,to,amount)`**
-Otherwise,
-**`L1Bridge::finalizeERC20Withdrawal(L1token,L2token,from,to,amount)`**
-3. relayer accept
-Check L2 events and call relayMessage on L1.
-**`finalizeERC20Withdrawal`**
-Reduce **`deposits[l1token][l2token]`**.
-**`IERC20(L1Token).safeTransfer(to,amount)`**
+1. **Burn L2token**
+2. **Encode Message**
+    - If L2Token==L2_WETH, it triggers **`L1Bridge::finalizeWethWithdrawal(from,to,amount)`**.
+    - Otherwise, it triggers **`L1Bridge::finalizeERC20Withdrawal(L1token,L2token,from,to,amount)`**.
+3. **Relayer Acceptance**
+    - Checks L2 events and calls relayMessage on L1.
+    - **`finalizeERC20Withdrawal`** reduces **`deposits[l1token][l2token]`**.
+    - Executes **`IERC20(L1Token).safeTransfer(to,amount)`**.
 
-**`finalizeWethWithdrawal`**
-→ **`finalizeWethWithdrawal(weth,L2_WETH,from,to,amount)`**
-
-The current balance situation is as follows.
+### **Current Balance Situation**
 
 ```markdown
 # L1_weth
@@ -178,97 +166,22 @@ L1_weth → L2_weth: 2 ether
 L2Bridge: 2 ether
 ```
 
-```solidity
-function finalizeERC20Withdrawal(address _l1Token, address _l2Token, address _from, address _to, uint256 _amount)
-    public
-    onlyFromCrossDomainAccount(l2TokenBridge)
-{
-    deposits[_l1Token][_l2Token] = deposits[_l1Token][_l2Token] - _amount;
-    IERC20(_l1Token).safeTransfer(_to, _amount);
-    emit ERC20WithdrawalFinalized(_l1Token, _l2Token, _from, _to, _amount);
-}
+### **Potential Race Condition?**
 
-```
+Race conditions seem unlikely, but could they be a factor? The worker checks for events in the block, waits 1 second per event, and remains pending until the transaction finalizes. Could disrupting the sync create a race condition?
 
-**So, we need to focus on this part which can decrease the balance..**
+- The sendMessage function allows arbitrary calls (msg.sender = crossDomainMessenger), but finalizeERC20Withdrawal and deposits aren't possible.
+- What about using a fakeL1/L2 token? This could extend beyond just the L1weth ↔ L2weth pair to include L1weth ↔ L2fake.
 
 ```solidity
-solidityCopy code
-L1 relayer / L2 relayer
-
-L1 deposit
-l1token -> l1bridge
-send message
-deposit[l1token][l2token] += amount
-
-L1 deposit relay message
-l2token mint
-
-L2 withdraw
-l2token -> 0 (burn)
-send message
-
-L2 deposit relay message
-deposit[l1token][l2token] -= amount
-l1token -> someone
-
-```
-
-Do transactions execute and then events occur? Or do events occur during execution?
-Race conditions seem unlikely, but maybe not?
-The worker checks the block for events and waits 1 second per event + pending until transaction finalizes.
-So by messing up the sync, can we create a race condition?
-
-- sendMessage function allows arbitrary calls (msg.sender = crossDomainMessenger)
-But finalizeERC20Withdrawal, deposit, etc. are not possible.
-- With a fakeL1/L2 token, etc.
-Not only L1weth ↔ L2weth pair,
-L1weth ↔ L2fake
-
-```solidity
-solidityCopy code
 (bool success,) = _target.call(_message);
-
 ```
 
-Or, can we interact with the token using this part of the relayMessage (msg.sender = relayer)?
-But it seems unrelated to tokens.
+Can we interact with the token using this part of relayMessage (msg.sender = relayer)? It seems unrelated to tokens.
+
+## **Root Cause**
 
 ```solidity
-solidityCopy code
-L1 :
-L1 weth -> L2 fake
-L1 weth -> L1 Bridge (amount) transfer
-deposits[L1token][L2fake]+= amount
-
-L2 :
-L2 weth mint (amount)
-
-If 2 ether is transferred,,
-
-# L1_weth
-L1Bridge: 2 + 2 ether
-
-# deposits
-L1_weth -> L2_weth: 2 ether
-L1_weth -> L2_fake: 2 ether
-
-# L2_weth
-L1Bridge: 2 ether
-user: 2 ether
-
-# L2_fake
-user : XXXXX ether
-
-withdraw L2_weth -> L1_weth 2 ether
-withdraw L2_fake -> L1_weth 2 ether
-
-```
-
-Why is this possible?
-
-```solidity
-solidityCopy code
 function _initiateERC20Deposit(address _l1Token, address _l2Token, address _from, address _to, uint256 _amount)
     internal
 {
@@ -289,22 +202,19 @@ function _initiateERC20Deposit(address _l1Token, address _l2Token, address _from
 
     emit ERC20DepositInitiated(_l1Token, _l2Token, _from, _to, _amount);
 }
-
 ```
 
-In the **`_initateERC20Deposit`** function, regardless of what the L2 token is, if the L1 token is weth, then the event message sent to L2 will make the deposit to L2:WETH. However, a different L2 token can be recorded in the deposits mapping storage.
+The **`_initateERC20Deposit`** function behaves in a specific way:
 
-Therefore, deploy a fakeL2 token on L2 and give the user enough of that token. Then, calling the above function with the fakeL2 token as an argument, the record in deposits will be **`L1_WETH-fakeL2`**, but the deposit on L2 will be made to **`L2_WETH`**.
-Thus, **`L2_WETH`** can be withdrawn as much as recorded in deposits **`L1_WETH-L2_WETH`**.
-
-Using this method, we can withdraw the **`2 ether`** in **`L1ERC20Bridge`**, and again withdraw the amount recorded as **`L1_WETH-fakeL2`** from L2's fakeL2 (the user can specify any amount of fakeL2 tokens, so this is not a problem) and withdraw all the **`L1_WETH`** in **`L1ERC20Bridge`**.
+- Regardless of the L2 token, if the L1 token is weth, the event message sent to L2 will make the deposit to L2:WETH. However, a different L2 token can be recorded in the deposits mapping storage.
+- Deploying a fakeL2 token on L2 and giving the user enough of that token allows for manipulation
 
 ## **Exploit**
 
-1. [L2] Create a fake L2 token.
-2. [L1] Send L1_weth → L2_fake (actually, send L1_weth → L2_weth).
-3. [L2] Withdraw L2_weth → L1_weth 2 ether.
-4. [L2] Withdraw L2_fake → L1_weth 2 ether.
+1. **[L2]** Create a fake L2 token.
+2. **[L1]** Send L1_weth → L2_fake (effectively sending L1_weth → L2_weth).
+3. **[L2]** Withdraw L2_weth → L1_weth (2 ether).
+4. **[L2]** Withdraw L2_fake → L1_weth (2 ether).
 
 ```solidity
 pragma solidity ^0.8.20;
@@ -404,10 +314,9 @@ contract L2Fake is IL2StandardERC20, ERC20 {
 }
 ```
 
-I'm not familiar with Foundry..
-So I executed each function one by one, changing the L2 and L1 rpc, and couldn't run them all at once, so I couldn't share variables. Therefore, I executed each function one by one and put the addresses into environment variables.
-vm.createSelectFork would work.. probably.
+### **Challenges and Considerations**
 
-I think deploying an attacker contract is a better way to writing the code.
-
-The last **`run_withdraw`** doesn't work because it uses precompiled address, so I had to directly send it using cast send.
+- Not being familiar with Foundry meant executing each function one by one, changing the L2 and L1 rpc accordingly. This prevented variable sharing, requiring the execution of each function individually and updating environment variables as needed.
+- Using **`vm.createSelectFork`** could potentially address this issue.
+- Deploying an attacker contract seems like a more efficient approach to writing the code.
+- The last **`run_withdraw`** function was problematic due to its use of a precompiled address, necessitating direct sending using cast send.
