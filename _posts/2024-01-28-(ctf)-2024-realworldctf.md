@@ -20,7 +20,7 @@ Drain the **`BRIDGE`** (L1ERC20Bridge) of its WETH balance.
 
 ## **Setup**
 
-The challenge is set up using the `challenge.py` file, with `relayer.py` also running in the background.
+The challenge setup is using the `challenge.py` file, with `relayer.py` also running in the background.
 
 There appear to be two instances each of l1 and l2, with each instance holding 1000 ether.
 
@@ -314,9 +314,8 @@ contract L2Fake is IL2StandardERC20, ERC20 {
 }
 ```
 
-### **Challenges and Considerations**
+### **Considerations**
 
-- Not being familiar with Foundry meant executing each function one by one, changing the L2 and L1 rpc accordingly. This prevented variable sharing, requiring the execution of each function individually and updating environment variables as needed.
-- Using **`vm.createSelectFork`** could potentially address this issue.
-- Deploying an attacker contract seems like a more efficient approach to writing the code.
-- The last **`run_withdraw`** function was problematic due to its use of a precompiled address, necessitating direct sending using cast send.
+- I'm not much familiar with foundry so I executed each function one by one, changing the L2 and L1 rpc accordingly. So I couldn't shared variables so I manually updated environment variables per call.
+- Deploying an attacker contract seems like a more efficient to writing the code.
+- The last **`run_withdraw`** function couldn't run in foundry due to its use of a precompiled address. I should called withdraw function using cast
