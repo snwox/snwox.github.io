@@ -3,7 +3,7 @@ title: (CTF) ETH Escape CTF 2024 writeup (Feel, Vest, MAZE)
 description: ETH Escape CTF writeup
 categories: [CTF,WEB3]
 tags : [writeup,web3]
-date : 2024-11-21 05:02:13 +0900
+date : 2024-11-21 02:02:13 +0900
 author:
     name:
     link:
