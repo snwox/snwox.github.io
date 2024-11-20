@@ -23,6 +23,7 @@ I authored three challenges: `Vest`, `Feel`, and `MAZE`, designed for the 1st, 5
 ---
 `round 5, 0 solve`
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120025606.png)
+
 Three contract files are given: `VestToken`, `Setup`, and `Vest`.
 - `VestToken` is an ERC20 token contract with a total supply of `50000` ether.
 - The `Setup` contract creates the `VestToken` and `Vest` contracts. It also transfers `50000` ether worth of tokens to the `Vest` contract.
@@ -31,7 +32,7 @@ The goal is to make the token balance of the `Setup` contract equal to `50000` e
 ### Vest contract
 ---
 The `Vest` contract provides the `vesting` service. There are three external functions: `createVesting`, `transferVesting`, and `claimVesting`.
-```solidity
+```javascript
     function createVesting(address beneficiary) external {
         require(beneficiary != address(0), "Invalid beneficiary address");
         require(vestingCount < 10, "Maximum number of vestings reached");
@@ -50,7 +51,7 @@ The `Vest` contract provides the `vesting` service. There are three external fun
 ```
 In the `createVesting` function, it creates a new vesting with `vestingCount`. `FIXED_AMOUNT` is `1000` ether. Creating only 10 vestings is allowed.
 
-```solidity
+```javascript
     function transferVesting(uint256 vestingId,address newBeneficiary, uint256 amount,uint256 newVestingId) external onlyBeneficiary(vestingId) {
         require(newBeneficiary != address(0), "New beneficiary is zero address");
         
@@ -78,7 +79,7 @@ The bugs:
 
 So, the user can claim more than `10000` ether. However, as mentioned in the description, there is a time limit for this challenge.
 
-```solidity
+```javascript
     function claimVesting(uint256 vestingId) external onlyBeneficiary(vestingId) {
         Vesting storage vesting = vestings[vestingId];
         uint256 elapsed = block.timestamp - vesting.start;
@@ -105,7 +106,7 @@ Let's look at the `claimVesting` function. `TOTAL_STEPS` is `5*5`, and `CLAIM_IN
 
 ### Exploit
 ---
-```solidity
+```javascript
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -160,7 +161,8 @@ In the original version, the function reverts when the vesting is completed (cla
 ## Feel
 ---
 `round 1, 0 solve`
-![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120033534.png)   
+![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120033534.png)  
+
 Also, three contract files are given: `Feel`, `FeelToken`, and `Setup`.
 - `FeelToken` is an ERC20 token contract with a `totalSupply` of `20` ether.  
 - The `Setup` contract creates the `Feel` and `FeelToken` contracts and sends `20` ether worth of `FeelToken` to the `Feel` contract.  
@@ -169,7 +171,7 @@ The goal is to make the token balance of the `Setup` contract equal to `20` ethe
 ### Feel contract
 ---
 The `Feel` contract provides milestone service, which is similar to `Vest` challenge.
-```solidity
+```javascript
     function addMilestone(uint256 id, string calldata note) public {
         require(milestones[id].id == 0, "Feel: milestone id already exists");
         require(id > 0, "Feel: milestone id must be greater than 0");
@@ -203,7 +205,7 @@ The `Milestone` struct has six members. The user can only specify the `id` and `
 ```
 The user can unlock a milestone after 5 minutes (default).
 
-```solidity
+```javascript
     function claimMilestone(uint256 id) public {
         Milestone storage milestone = milestones[id];
         require(milestone.status == Status.Unlocked, "Feel: milestone is locked");
@@ -246,7 +248,7 @@ The bugs:
 
 ### Exploit
 ---
-```solidity
+```javascript
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -298,9 +300,10 @@ This challenge is also inspired by a real-world case. lol
 ---
 `final, 1 solve`
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120041422.png)
+
 The only one file was given. `Setup.sol`
 
-```solidity
+```javascript
 pragma solidity ^0.8.25;
 
 contract Setup {
@@ -330,7 +333,7 @@ When the `Setup` contract calls the maze contract with `DEADBEEF` as calldata, i
 ### bytecode reversing with decompiler
 ---
 
-```solidity
+```javascript
 function __function_selector__() private { 
     if (0xdeadbeef == msg.data[0] >> 224) {
         CodeIsLawZ95677371();
@@ -386,18 +389,23 @@ It checks if the bit in the new location is set according to the map. The size o
 I prefer using [bytegraph.xyz](https://bytegraph.xyz/bytecode/1c1b6c3e23794ada5a18c703d2527e0d/graph) for analyzing bytecode.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121022715.png)
+
 It returns the value of slot `0` when the calldata is `DEADBEEF`.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121022806.png)
+
 It stores map data in `0x00 ~ 0xc0`, position to `0x140` and iterator(0) to `0x100`
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121023053.png)
+
 The loop iterates until iterator reaches the `calldatasize`, and if the `position` equals `0x64f` after the loop, it stores `1` in slot `0`.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121023711.png)
+
 The user input can be one of the following: `w`, `a`, `s`, or `d`. I just realized a mistake: in other cases, it simply jumps to `w` instead of stopping, haha..
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121024109.png)
+
 There are six red boxes. Let's examine the case of `w`:
 1. It calculates the next position by subtracting `0x31` (the size of a row). (`w -> -0x31, s -> +0x31, a -> -1, d -> +1`).  
 2. It performs a modulo operation with `0x650`. This is a bug because the position can be a negative value. If it is moduloed with `0x650`, it can jump to another location. For example, when the new position is `-1` (`0xff...`), the result of the modulo with `0x650` will be `0x60F` (`((1 << 256) - 1) % 0x650`).  
@@ -406,6 +414,7 @@ There are six red boxes. Let's examine the case of `w`:
 5. It performs an AND operation with `1` to check the value of that bit.  If the result is `1`, the EVM stops.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121025113.png)
+
 Finally, it updates the location and increases the iterator.
 
 ### The maze
@@ -436,9 +445,11 @@ for i in range(0, 33):
 You can print the maze using the code above.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121025531.png)
+
 The `S` marks the starting point. If you try to find a way to reach the goal location, there will be no solution because I intentionally blocked the path to get there.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121030057.png)
+
 The intended solution is going to `0x00`, setting the new position to `-1`, and then jumping to `0x60F` to escape the maze. However, there was an unintended solution that I couldn’t block. Additionally, there’s another method: reaching the location marked with a star also allows escaping the maze.
 
 > aaawwwwwwaaaaaaaaaawwaaaaaawwaaaawawwddddddssddddddddds
