@@ -22,7 +22,7 @@ GEM
     ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
-    ffi (1.15.4)
+    ffi (1.16.3)
     forwardable-extended (2.6.0)
     html-proofer (3.19.3)
       addressable (~> 2.3)
@@ -72,7 +72,9 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
-    nokogiri (1.12.5-x86_64-linux)
+    mini_portile2 (2.6.1)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     parallel (1.21.0)
     pathutil (0.16.2)
@@ -103,9 +105,11 @@ GEM
     yell (2.2.2)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
+  ffi (~> 1.16.3)
   html-proofer (~> 3.18)
   jekyll-theme-chirpy!
   tzinfo (~> 1.2)

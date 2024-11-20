@@ -328,6 +328,7 @@ contract Setup {
 When the `Setup` contract calls the maze contract with `DEADBEEF` as calldata, it should return `uint256(1)`.
 
 ### bytecode reversing with decompiler
+---
 
 ```solidity
 function __function_selector__() private { 
@@ -385,29 +386,31 @@ It checks if the bit in the new location is set according to the map. The size o
 I prefer using [bytegraph.xyz](https://bytegraph.xyz/bytecode/1c1b6c3e23794ada5a18c703d2527e0d/graph) for analyzing bytecode.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121022715.png)
-1. It returns the value of slot `0` when the calldata is `DEADBEEF`.
+It returns the value of slot `0` when the calldata is `DEADBEEF`.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121022806.png)
-2. It stores map data in `0x00 ~ 0xc0`, position to `0x140` and iterator(0) to `0x100`
+It stores map data in `0x00 ~ 0xc0`, position to `0x140` and iterator(0) to `0x100`
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121023053.png)
-3. The loop iterates until iterator reaches the `calldatasize`, and if the `position` equals `0x64f` after the loop, it stores `1` in slot `0`.
+The loop iterates until iterator reaches the `calldatasize`, and if the `position` equals `0x64f` after the loop, it stores `1` in slot `0`.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121023711.png)
-4. The user input can be one of the following: `w`, `a`, `s`, or `d`. I just realized a mistake: in other cases, it simply jumps to `w` instead of stopping, haha..
+The user input can be one of the following: `w`, `a`, `s`, or `d`. I just realized a mistake: in other cases, it simply jumps to `w` instead of stopping, haha..
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121024109.png)
-5. There are six red boxes. Let's examine the case of `w`:
-   a. It calculates the next position by subtracting `0x31` (the size of a row). (`w -> -0x31, s -> +0x31, a -> -1, d -> +1`).  
-   b. It performs a modulo operation with `0x650`. This is a bug because the position can be a negative value. If it is moduloed with `0x650`, it can jump to another location. For example, when the new position is `-1` (`0xff...`), the result of the modulo with `0x650` will be `0x60F` (`((1 << 256) - 1) % 0x650`).  
-   c,d. It divides the position by `0x100` and multiplies the result by `0x20` to determine the map to use.  
-   e. It performs a modulo operation with `0x100` on the position and shifts the map to the right by that value to locate the corresponding bit.  
-   f. It performs an AND operation with `1` to check the value of that bit.  If the result is `1`, the EVM stops.
-   
+There are six red boxes. Let's examine the case of `w`:
+1. It calculates the next position by subtracting `0x31` (the size of a row). (`w -> -0x31, s -> +0x31, a -> -1, d -> +1`).  
+2. It performs a modulo operation with `0x650`. This is a bug because the position can be a negative value. If it is moduloed with `0x650`, it can jump to another location. For example, when the new position is `-1` (`0xff...`), the result of the modulo with `0x650` will be `0x60F` (`((1 << 256) - 1) % 0x650`).  
+3. It divides the position by `0x100` and multiplies the result by `0x20` to determine the map to use.  
+4. It performs a modulo operation with `0x100` on the position and shifts the map to the right by that value to locate the corresponding bit.  
+5. It performs an AND operation with `1` to check the value of that bit.  If the result is `1`, the EVM stops.
+
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121025113.png)
-6. Finally, it updates the location and increases the iterator.
+Finally, it updates the location and increases the iterator.
+
 ### The maze
 ---
+
 ```python
 maze = [0x41327924f1b91fe820120120804b93f9248e3926010092082080000036fbefb8,
 0x8c4f3a002402480003238db6237239920124124120b1db1249271c6412092400,
