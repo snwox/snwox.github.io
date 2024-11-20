@@ -147,7 +147,7 @@ contract Exploit {
 This is exploit contract and the exploit scenario is as follows:  
 1. Create 10 vestings.  
 2. Claim the 10 vestings after `25` seconds and transfer the vestings to itself.  
-3. Repeat step 2.  
+3. Repeat step 2 five times.  
 4. Send the token amount of `50000` ether to the `setup` contract. 
 
 ### NOTE
