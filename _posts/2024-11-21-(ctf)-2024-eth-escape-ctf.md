@@ -238,7 +238,7 @@ First, it retrieves the storage value in the `note` of the milestone and checks 
 
 > In particular: if the data is at most `31` bytes long, the elements are stored in the higher-order bytes (left aligned) and the lowest-order byte stores the value `length * 2`. For byte arrays that store data which is `32` or more bytes long, the main slot `p` stores `length * 2 + 1` and the data is stored as usual in `keccak256(p)`. This means that you can distinguish a short array from a long array by checking if the lowest bit is set: short (not set) and long (set).
 
-If the length of the `note` is less than 32 bytes, it retrieves 32 bytes from storage directly. Otherwise, it calculates how many slots to retrieve based on the length of the string and then retrieves the entire string. It then checks for the presence of the ` [CLAIMED]` substring in the `note`. The `findClaimString` function, created with GPT, has no bugs for this functionality :3
+If the length of the `note` is less than 32 bytes, it retrieves 32 bytes from storage directly. Otherwise, it calculates how many slots to retrieve based on the length of the string and then retrieves the entire string. It then checks for the presence of the `[CLAIMED]` substring in the `note`. The `findClaimString` function, created with GPT, has no bugs for this functionality :3
 
 If the string `[CLAIMED]` is not found, the function appends the string to the `note`, sends the token to the user, and decreases `milestoneCount` by 1. This allows the possibility of creating a new milestone after claiming a milestone. However, the server timeout is `9 minutes`
 
@@ -289,7 +289,7 @@ contract ExploitScript is Script {
 ```
 
 The exploit scenario is:  
-1. Add 10 milestones with notes of length `23` (after appending ` [CLAIMED]`, the length will become `33`).  
+1. Add 10 milestones with notes of length `23` (after appending `[CLAIMED]`, the length will become `33`).  
 2. Wait 5 minutes to unlock the milestones, claim a milestone, and add some milestones to prevent underflow. Then, claim the same milestone again.
 
 ### NOTE
