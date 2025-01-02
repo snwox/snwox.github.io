@@ -54,7 +54,7 @@ In the `createVesting` function, it creates a new vesting with `vestingCount`. `
 ```javascript
     function transferVesting(uint256 vestingId,address newBeneficiary, uint256 amount,uint256 newVestingId) external onlyBeneficiary(vestingId) {
         require(newBeneficiary != address(0), "New beneficiary is zero address");
-        
+
         address previousBeneficiary = vestings[vestingId].beneficiary;
 
         vestings[vestingId].totalAmount -= amount;
@@ -73,8 +73,8 @@ In the `createVesting` function, it creates a new vesting with `vestingCount`. `
 ```
 There's a bug in the `transferVesting` function. It decreases `totalAmount` by the amount to send and initializes the `step`. After that, it creates a new vesting with `newVestingId` for that amount with a new beneficiary.
 
-The bugs:  
-1. `newVestingId` can be an existing `vestingId`, but there is no way to drain or bypass the restriction with this bug. If misused, this bug allows overwriting an existing vesting with a smaller amount.  
+The bugs:
+1. `newVestingId` can be an existing `vestingId`, but there is no way to drain or bypass the restriction with this bug. If misused, this bug allows overwriting an existing vesting with a smaller amount.
 2. The function does not check the `claimAmount` of the previous vesting. As a result, a user can send an already claimed vesting to themselves again. With `totalAmount`, the user can create vestings again without increasing `vestingCount`.
 
 So, the user can claim more than `10000` ether. However, as mentioned in the description, there is a time limit for this challenge.
@@ -83,8 +83,8 @@ So, the user can claim more than `10000` ether. However, as mentioned in the des
     function claimVesting(uint256 vestingId) external onlyBeneficiary(vestingId) {
         Vesting storage vesting = vestings[vestingId];
         uint256 elapsed = block.timestamp - vesting.start;
-        
-        uint256 totalSteps = TOTAL_STEPS - vesting.step; 
+
+        uint256 totalSteps = TOTAL_STEPS - vesting.step;
         uint256 availableSteps = elapsed / CLAIM_INTERVAL;
 
         if (availableSteps > totalSteps) {
@@ -144,28 +144,28 @@ contract Exploit {
 }
 
 ```
-This is exploit contract and the exploit scenario is as follows:  
-1. Create 10 vestings.  
-2. Claim the 10 vestings after `25` seconds and transfer the vestings to itself.  
-3. Repeat step 2 five times.  
-4. Send the token amount of `50000` ether to the `setup` contract. 
+This is exploit contract and the exploit scenario is as follows:
+1. Create 10 vestings.
+2. Claim the 10 vestings after `25` seconds and transfer the vestings to itself.
+3. Repeat step 2 five times.
+4. Send the token amount of `50000` ether to the `setup` contract.
 
 ### NOTE
 ---
 The attack scenario used in this challenge is kind of a real-world case. I encountered a similar issue before but couldn’t exploit it because the function had proper access control 🙃. It was surprised when someone approached me after the CTF and told me he really enjoyed this challenge because he had encountered a similar bug case a few years ago lol
 
-I believe this challenge is pretty easy, but the time for each round was too short (two challenges in 60 minutes).  
+I believe this challenge is pretty easy, but the time for each round was too short (two challenges in 60 minutes).
 
 In the original version, the function reverts when the vesting is completed (claimable amount is `1000` ether), and `TOTAL_STEPS` and `CLAIM_INTERVAL` were significantly longer. The exploit required almost 10 minutes, which often led to server timeouts. This meant I had to write a fully accurate script, including fetching RPC info, precise sleep timings, and more, to execute the exploit successfully.
 
 ## Feel
 ---
 `round 1, 0 solve`
-![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120033534.png)  
+![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241120033534.png)
 
 Also, three contract files are given: `Feel`, `FeelToken`, and `Setup`.
-- `FeelToken` is an ERC20 token contract with a `totalSupply` of `20` ether.  
-- The `Setup` contract creates the `Feel` and `FeelToken` contracts and sends `20` ether worth of `FeelToken` to the `Feel` contract.  
+- `FeelToken` is an ERC20 token contract with a `totalSupply` of `20` ether.
+- The `Setup` contract creates the `Feel` and `FeelToken` contracts and sends `20` ether worth of `FeelToken` to the `Feel` contract.
 The goal is to make the token balance of the `Setup` contract equal to `20` ether.
 
 ### Feel contract
@@ -183,7 +183,7 @@ The `Feel` contract provides milestone service, which is similar to `Vest` chall
 ```
 Let's first look at the `addMilestone` function. The user can specify an `id` that does not exist previously, and the maximum number of milestones is limited to 10.
 
-```
+```javascript
     struct Milestone {
         uint256 id;
         uint256 amount;
@@ -195,7 +195,7 @@ Let's first look at the `addMilestone` function. The user can specify an `id` th
 ```
 The `Milestone` struct has six members. The user can only specify the `id` and `note`. They can earn `1` ether for completing one milestone.
 
-```
+```javascript
     function unlockMilestone(uint256 id) public {
         Milestone storage milestone = milestones[id];
         require(milestone.status == Status.Locked, "Feel: milestone is already unlocked");
@@ -242,8 +242,8 @@ If the length of the `note` is less than 32 bytes, it retrieves 32 bytes from st
 
 If the string `[CLAIMED]` is not found, the function appends the string to the `note`, sends the token to the user, and decreases `milestoneCount` by 1. This allows the possibility of creating a new milestone after claiming a milestone. However, the server timeout is `9 minutes`
 
-The bugs:  
-1. The `note_bytes32` includes the length of the note, not just the data. However, this doesn’t affect the outcome in this challenge.  
+The bugs:
+1. The `note_bytes32` includes the length of the note, not just the data. However, this doesn’t affect the outcome in this challenge.
 2. The length is calculated incorrectly using `(string_length >> 1) - 1` instead of the correct formula `(string_length - 1) >> 1`. As a result, the length is calculated as one less than the original length. This becomes problematic when the length is `32*n + 1`, especially `33`. In this case, the length is calculated as `32`, and the `extra_slots` is calculated as `1`. Consequently, one less slot is retrieved. If the length of the note after appending the `[CLAIMED]` string becomes `32*n + 1`, the last character `]` is missed, allowing the milestone to be claimed twice.
 
 ### Exploit
@@ -288,8 +288,8 @@ contract ExploitScript is Script {
 }
 ```
 
-The exploit scenario is:  
-1. Add 10 milestones with notes of length `23` (after appending `[CLAIMED]`, the length will become `33`).  
+The exploit scenario is:
+1. Add 10 milestones with notes of length `23` (after appending `[CLAIMED]`, the length will become `33`).
 2. Wait 5 minutes to unlock the milestones, claim a milestone, and add some milestones to prevent underflow. Then, claim the same milestone again.
 
 ### NOTE
@@ -334,7 +334,7 @@ When the `Setup` contract calls the maze contract with `DEADBEEF` as calldata, i
 ---
 
 ```javascript
-function __function_selector__() private { 
+function __function_selector__() private {
     if (0xdeadbeef == msg.data[0] >> 224) {
         CodeIsLawZ95677371();
     } else {
@@ -378,9 +378,9 @@ function __function_selector__() private {
     }
 }
 ```
-First, we can decompile the bytecode using the Dedaub [decompiler](https://app.dedaub.com/decompile?md5=6686bb733ec4e8e4bbfa8b072234b7e0). However, the output seems quite different from what I expected, probably because I wrote this bytecode in Huff and used stack variables efficiently (ig).  
+First, we can decompile the bytecode using the Dedaub [decompiler](https://app.dedaub.com/decompile?md5=6686bb733ec4e8e4bbfa8b072234b7e0). However, the output seems quite different from what I expected, probably because I wrote this bytecode in Huff and used stack variables efficiently (ig).
 
-As you can see, the map data is stored in `0x00 ~ 0xc0`, but `0x40` is missing in the decompiler. The initial position is stored in `MEM[320]` (`562 = 11 * 49 + 23 = [11][23]`). The loop iterates based on the length of the `msg.data`, and `MEM[uint8.max + 1]` (`MEM[0x100]`) is used as the iterator.  
+As you can see, the map data is stored in `0x00 ~ 0xc0`, but `0x40` is missing in the decompiler. The initial position is stored in `MEM[320]` (`562 = 11 * 49 + 23 = [11][23]`). The loop iterates based on the length of the `msg.data`, and `MEM[uint8.max + 1]` (`MEM[0x100]`) is used as the iterator.
 
 It checks if the bit in the new location is set according to the map. The size of a row is `49`, and it should approach `1615` (`[34][47]`).
 
@@ -407,10 +407,10 @@ The user input can be one of the following: `w`, `a`, `s`, or `d`. I just realiz
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121024109.png)
 
 There are six red boxes. Let's examine the case of `w`:
-1. It calculates the next position by subtracting `0x31` (the size of a row). (`w -> -0x31, s -> +0x31, a -> -1, d -> +1`).  
-2. It performs a modulo operation with `0x650`. This is a bug because the position can be a negative value. If it is moduloed with `0x650`, it can jump to another location. For example, when the new position is `-1` (`0xff...`), the result of the modulo with `0x650` will be `0x60F` (`((1 << 256) - 1) % 0x650`).  
-3. It divides the position by `0x100` and multiplies the result by `0x20` to determine the map to use.  
-4. It performs a modulo operation with `0x100` on the position and shifts the map to the right by that value to locate the corresponding bit.  
+1. It calculates the next position by subtracting `0x31` (the size of a row). (`w -> -0x31, s -> +0x31, a -> -1, d -> +1`).
+2. It performs a modulo operation with `0x650`. This is a bug because the position can be a negative value. If it is moduloed with `0x650`, it can jump to another location. For example, when the new position is `-1` (`0xff...`), the result of the modulo with `0x650` will be `0x60F` (`((1 << 256) - 1) % 0x650`).
+3. It divides the position by `0x100` and multiplies the result by `0x20` to determine the map to use.
+4. It performs a modulo operation with `0x100` on the position and shifts the map to the right by that value to locate the corresponding bit.
 5. It performs an AND operation with `1` to check the value of that bit.  If the result is `1`, the EVM stops.
 
 ![img](/assets/img/2024-11-21-eth-escape/Pasted image 20241121025113.png)
