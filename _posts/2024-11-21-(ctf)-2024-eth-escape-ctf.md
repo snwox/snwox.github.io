@@ -152,11 +152,9 @@ This is exploit contract and the exploit scenario is as follows:
 
 ### NOTE
 ---
-The attack scenario used in this challenge is kind of a real-world case. I encountered a similar issue before but couldn’t exploit it because the function had proper access control 🙃. It was surprised when someone approached me after the CTF and told me he really enjoyed this challenge because he had encountered a similar bug case a few years ago lol
+I believe this challenge was pretty easy, but the time for each round was too short (two challenges in 60 minutes).
 
-I believe this challenge is pretty easy, but the time for each round was too short (two challenges in 60 minutes).
-
-In the original version, the function reverts when the vesting is completed (claimable amount is `1000` ether), and `TOTAL_STEPS` and `CLAIM_INTERVAL` were significantly longer. The exploit required almost 10 minutes, which often led to server timeouts. This meant I had to write a fully accurate script, including fetching RPC info, precise sleep timings, and more, to execute the exploit successfully.
+In the original version, the function reverts when the vesting is completed (claimable amount is `1000` ether), and `TOTAL_STEPS` and `CLAIM_INTERVAL` were significantly longer. The exploit required almost 10 minutes, which often led to server timeouts. This meant I had to write a fully accurate script, including fetching RPC info, precise sleep timings, and more, to exploit successfully.
 
 ## Feel
 ---
