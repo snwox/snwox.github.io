@@ -81,7 +81,8 @@ img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
 #avatar: 'https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory4.daumcdn.net%2Ftistory%2F3745846%2Fattach%2Ffb0503fd36dd41d29ccaae4b50030d2c'
-avatar: 'https://cdn.discordapp.com/avatars/457438240505593857/decbf160fdb8f883d145d2f6db6f440d.webp?size=256'
+# avatar: 'https://cdn.discordapp.com/avatars/457438240505593857/decbf160fdb8f883d145d2f6db6f440d.webp?size=256'
+avatar: 'https://cdn.discordapp.com/attachments/952583628351746111/1366448241180409956/ralph.png?ex=6810fb98&is=680faa18&hm=11cddd0aa108853f239a538ee9826a75bed75b2935b9931e414308f7ddba3219&'
 # boolean type, the global switch for ToC in posts.
 toc: true
 
