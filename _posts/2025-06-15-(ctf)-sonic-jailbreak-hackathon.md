@@ -26,7 +26,8 @@ All the transaction hashes can be found in [sonicscan.org](https://sonicscan.org
 
 ## Eu Tu Proxy?
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/EU_TU_PROXY\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/EU_TU_PROXY)
+
 ---
 
 Transaction hash: 0x5bcd073052cfaafda0b38ee976d6612f937c967112651cbc9510b8203eabfc6e, 0xf1f8616a6ac71d852d17d82f63fd943760d3e88b1f82e6c76909c03c78d8c015
@@ -66,7 +67,8 @@ Transaction hash: 0x5bcd073052cfaafda0b38ee976d6612f937c967112651cbc9510b8203eab
 
 ## MIGHTY’s IDENTITY CRISIS
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/MIGHTY'S_IDENTITY_CRISIS\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/MIGHTY'S_IDENTITY_CRISIS)
+
 ---
 
 Transaction hash:  0x15229302aaf7f9f7d1f4473342985ca951829fbcbd56f7129fd2c86c2af78bec
@@ -144,7 +146,8 @@ Transaction hash:  0x15229302aaf7f9f7d1f4473342985ca951829fbcbd56f7129fd2c86c2af
 
 ## FANG’s POWER-BALL PARADISE
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/FANG'S_POWERBALL_PARADISE\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/FANG'S_POWERBALL_PARADISE)
+
 ---
 
 Transaction hash:  0x01c8ee047215fd44153b123865621321dc0bcd821eb13510da7624675200cba6
@@ -287,7 +290,8 @@ Transaction hash:  0x01c8ee047215fd44153b123865621321dc0bcd821eb13510da762467520
 
 ## Fang’s venom
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/FANG'S_VENOM\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/FANG'S_VENOM)
+
 ---
 
 Transaction hash: 0x84758cfe94c3f8227d132fbcc616293043946049f1ef9088768c33358080bdc3
@@ -328,7 +332,8 @@ Transaction hash: 0x84758cfe94c3f8227d132fbcc616293043946049f1ef9088768c33358080
 
 ## Metal Knuckle’s Permissions
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/METAL_KNUCKLE'S_PERMISSION\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/METAL_KNUCKLE'S_PERMISSION)
+
 ---
 
 Transaction hash:  0xf6e08f017f68efd3ab95c98628f6d404a61cfad69ba51eb7d81739eb710f1ccb
@@ -361,7 +366,8 @@ so we could sign arbitrary message and sent same signed messages in `multisig` f
 
 ## Vector’s 3-Bit Surfer Island
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/VECTOR'S_3BIT_SURFER_ISLAND\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/VECTOR'S_3BIT_SURFER_ISLAND)
+
 ---
 
 
@@ -845,7 +851,8 @@ Transaction hash:  0x68bb55ae163d192fe9d65e8dfafc91b3c6d9ac3d9b668661419dcf389a4
 
 ## Knuckle’s Lending Pool
 
-[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/KNUCKLE'S_LENDING_POOL\)
+[challenge link](https://github.com/cantinasec/vienna_hackathon_2025/tree/main/KNUCKLE'S_LENDING_POOL)
+
 ---
 
 Transaction hash:  0xff54c7887ecc944044798d87c0721b093f1062f63dee5c9e98af0820148ef8ef
