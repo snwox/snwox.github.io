@@ -19,6 +19,7 @@ The interesting part was [pot contract](https://sonicscan.org/address/0x38dd721d
 
 You can check the info&challenges here
 > [blog.soniclabs.com/sonic-summit-jailbreak-hackathon-2025-users-vs-developers](https://blog.soniclabs.com/sonic-summit-jailbreak-hackathon-2025-users-vs-developers/)
+
 > [github.com/cantinasec/vienna_hackathon_2025](https://github.com/cantinasec/vienna_hackathon_2025)
 
 All the transaction hashes can be found in [sonicscan.org](https://sonicscan.org/)
