@@ -80,7 +80,7 @@ theme_mode: dark  # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: 'https://cdn.discordapp.com/attachments/952583628351746111/1366448241180409956/ralph.png?ex=68a940d8&is=68a7ef58&hm=39773c7a8d23d7787a2a115cd7d61be3a4c687b8667c7e2e97e275a21e546871&'
+avatar: 'https://media.discordapp.net/attachments/952583628351746111/1366448241180409956/ralph.png?ex=68f9ac58&is=68f85ad8&hm=fa5cd570119d286902631feb85f361030c6a4f7c3eb252f258530ed92ba7ba4b&=&format=webp&quality=lossless&width=2488&height=2168'
 # boolean type, the global switch for ToC in posts.
 toc: true
 
